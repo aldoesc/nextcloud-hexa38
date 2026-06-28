@@ -1,0 +1,3267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Guía Definitiva — Nextcloud Hexa38</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2cm 1.8cm 2cm 1.8cm;
+    @top-right {
+      content: "Proyecto Nube con Servidor Dedicado Low Cost | Nextcloud";
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 9pt;
+      color: #888;
+      font-style: italic;
+    }
+    @bottom-center {
+      content: "Página " counter(page);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 9pt;
+      color: #888;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Calibri', Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #2C3E50;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #1B5E8C;
+    font-weight: 600;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+    page-break-after: avoid;
+  }
+
+  h1 {
+    font-size: 22pt;
+    border-bottom: 3px solid #1B5E8C;
+    padding-bottom: 8px;
+    margin-top: 0;
+    page-break-before: always;
+  }
+
+  h1:first-of-type {
+    page-break-before: avoid;
+  }
+
+  h2 {
+    font-size: 16pt;
+    border-bottom: 1px solid #2E86C1;
+    padding-bottom: 4px;
+    margin-top: 1.5em;
+  }
+
+  h3 {
+    font-size: 13pt;
+    color: #2E86C1;
+  }
+
+  h4 {
+    font-size: 11.5pt;
+    color: #2E86C1;
+  }
+
+  p {
+    margin: 0.6em 0;
+    text-align: justify;
+  }
+
+  a {
+    color: #2E86C1;
+    text-decoration: none;
+  }
+
+  ul, ol {
+    margin: 0.6em 0;
+    padding-left: 1.6em;
+  }
+
+  li {
+    margin: 0.25em 0;
+  }
+
+  /* TABLAS */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8em 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background-color: #1B5E8C;
+    color: white;
+    text-align: left;
+    padding: 7px 9px;
+    font-weight: 600;
+    border: 1px solid #1B5E8C;
+  }
+
+  td {
+    padding: 6px 9px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #F5F5F5;
+  }
+
+  /* CÓDIGO */
+  code {
+    background-color: #F0F0F0;
+    color: #C7254E;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 9pt;
+  }
+
+  pre {
+    background-color: #2C3E50;
+    color: #ECF0F1;
+    padding: 12px 14px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin: 0.8em 0;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* BLOCKQUOTES */
+  blockquote {
+    border-left: 4px solid #2E86C1;
+    background-color: #E8F4FD;
+    margin: 1em 0;
+    padding: 8px 14px;
+    color: #2C3E50;
+    font-style: italic;
+  }
+
+  blockquote p {
+    margin: 0.4em 0;
+  }
+
+  /* HR */
+  hr {
+    border: none;
+    border-top: 1px solid #CCC;
+    margin: 1.5em 0;
+  }
+
+  /* CHECKBOXES */
+  input[type="checkbox"] {
+    margin-right: 6px;
+  }
+
+  /* PORTADA */
+  .cover {
+    text-align: center;
+    margin-top: 6cm;
+    page-break-after: always;
+  }
+
+  .cover h1 {
+    font-size: 32pt;
+    color: #1B5E8C;
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    page-break-before: avoid;
+  }
+
+  .cover h2 {
+    font-size: 20pt;
+    color: #2E86C1;
+    border: none;
+    font-weight: 400;
+    margin-top: 0.3em;
+  }
+
+  .cover .subtitle {
+    font-size: 14pt;
+    color: #555;
+    font-style: italic;
+    margin: 0.5em 0 3em 0;
+  }
+
+  .cover .meta {
+    font-size: 12pt;
+    color: #444;
+    margin-top: 4em;
+  }
+
+  .cover .meta p {
+    margin: 0.4em 0;
+    text-align: center;
+  }
+
+  /* Mejorar legibilidad en tablas grandes */
+  table.compact {
+    font-size: 8.5pt;
+  }
+
+  /* Evitar saltos malos */
+  table, pre, blockquote {
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <h1>PROYECTO</h1>
+  <h2>Nube con Servidor Dedicado Low Cost</h2>
+  <p class="subtitle">Guía Definitiva — Infraestructura, Operación, Monitoreo y Mantenimiento</p>
+
+  <div class="meta">
+    <p><strong>Stack:</strong> Nextcloud + Docker + Cloudflare Tunnel + Tailscale + MCP</p>
+    <p><strong>Versión 3.3</strong> — Junio 2026</p>
+    <p>Costo anual: ~$46 USD</p>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<h1>🌐 Guía Definitiva — Proyecto Nube con Servidor Dedicado Low Cost</h1>
+<blockquote>
+<p><strong>Versión 3.3</strong> — Junio 2026
+<strong>Proyecto:</strong> Nube Personal con Servidor Dedicado Low Cost
+<strong>Stack:</strong> Nextcloud + Docker + Cloudflare Tunnel + Tailscale + MCP de gestión</p>
+<p>Esta guía integra el proyecto original, todas las mejoras aplicadas, los incidentes resueltos, los procedimientos de diagnóstico y recuperación, el sistema de monitoreo en capas, el servidor MCP de gestión asistida por IA, y un catálogo completo de comandos.
+Diseñada para <strong>aplicar</strong>, <strong>estudiar</strong> y <strong>orientar</strong>.</p>
+<p><strong>Novedades v3.3:</strong> Fase 13 (MCP de gestión del NUC vía Claude) · Fase 14 (diagnóstico y resolución de inestabilidad WiFi: fix de driver + cambio de punto de acceso, con evidencia de 24 h) · Fase 15 (actualización de Nextcloud 33.0.2→33.0.4 con fijado de imagen Docker).</p>
+</blockquote>
+<hr>
+<h2>📋 Tabla de contenidos</h2>
+<h3>Parte 1 — Fundamentos del Proyecto</h3>
+<ol>
+<li><a href="#1-introducci%C3%B3n">Introducción</a></li>
+<li><a href="#2-conceptos-fundamentales">Conceptos fundamentales y glosario</a></li>
+<li><a href="#3-disciplinas-aplicadas">Disciplinas aplicadas</a></li>
+<li><a href="#4-arquitectura">Arquitectura del proyecto</a></li>
+</ol>
+<h3>Parte 2 — Implementación</h3>
+<ol start="5">
+<li><a href="#5-desarrollo-fases">Desarrollo paso a paso (Fases 1-7)</a></li>
+<li><a href="#6-archivos-configuraci%C3%B3n">Archivos de configuración</a></li>
+<li><a href="#7-iac">Infrastructure as Code</a></li>
+<li><a href="#8-costos">Costos del proyecto</a></li>
+</ol>
+<h3>Parte 3 — Evolución y Mejoras Aplicadas</h3>
+<ol start="9">
+<li><a href="#9-incidente">Fase 8: Incidente y recuperación de datos</a></li>
+<li><a href="#10-backup-offsite">Fase 9: Backup off-site (Google Drive)</a></li>
+<li><a href="#11-notify-push">Fase 10: Notify Push (sincronización instantánea)</a></li>
+<li><a href="#12-diagn%C3%B3stico-forense">Fase 11: Diagnóstico forense del sistema</a></li>
+<li><a href="#13-monitoreo">Fase 12: Sistema de monitoreo en capas</a>
+13b. <a href="#13b-mcp">Fase 13: MCP de gestión del NUC (Claude)</a>
+13c. <a href="#13c-wifi">Fase 14: Inestabilidad WiFi y degradación del túnel</a>
+13d. <a href="#13d-update">Fase 15: Actualización de Nextcloud y fijado de imagen</a></li>
+</ol>
+<h3>Parte 4 — Operación del Sistema</h3>
+<ol start="14">
+<li><a href="#14-diagn%C3%B3stico">Diagnóstico del sistema (qué, cómo, cuándo)</a></li>
+<li><a href="#15-recuperaci%C3%B3n">Recuperación ante desastres</a></li>
+<li><a href="#16-mantenimiento">Mantenimiento periódico</a></li>
+<li><a href="#17-troubleshooting">Troubleshooting de errores comunes</a></li>
+</ol>
+<h3>Parte 5 — Referencia</h3>
+<ol start="18">
+<li><a href="#18-cat%C3%A1logo-comandos">Catálogo completo de comandos</a></li>
+<li><a href="#19-recomendaciones">Recomendaciones finales</a></li>
+<li><a href="#20-estado-final">Estado final del sistema</a></li>
+</ol>
+<hr>
+<h1>Parte 1 — Fundamentos del Proyecto</h1>
+<h2>1. Introducción <a name="1-introducción"></a></h2>
+<h3>1.1 ¿Qué es una nube personal?</h3>
+<p>Una nube personal es un servicio de almacenamiento y sincronización de archivos que funciona en un servidor propio, en lugar de depender de servidores de terceros como Google, Microsoft o Apple. Permite guardar documentos, fotos, vídeos y cualquier tipo de archivo, accediendo a ellos desde cualquier dispositivo conectado a internet.</p>
+<p>La principal ventaja: <strong>control total sobre los datos</strong>.</p>
+<h3>1.2 Objetivo</h3>
+<p>Implementar un servicio de almacenamiento en la nube privado, seguro y accesible desde cualquier lugar, con tecnologías open-source y un servidor de bajo consumo (NUC), con costo operativo mínimo.</p>
+<h3>1.3 Comparación con servicios comerciales</h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Google Drive</th>
+<th>Dropbox</th>
+<th>Nube Personal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Almacenamiento</td>
+<td>15 GB / 2 TB ($10/mes)</td>
+<td>2 GB / 2 TB ($12/mes)</td>
+<td>1.7 TB (disco propio)</td>
+</tr>
+<tr>
+<td>Costo anual</td>
+<td>$120 USD (2 TB)</td>
+<td>$144 USD (2 TB)</td>
+<td>~$46 USD</td>
+</tr>
+<tr>
+<td>Privacidad</td>
+<td>Google accede</td>
+<td>Dropbox accede</td>
+<td>Control total</td>
+</tr>
+<tr>
+<td>Usuarios</td>
+<td>Limitado</td>
+<td>Limitado</td>
+<td>Ilimitados</td>
+</tr>
+<tr>
+<td>Personalización</td>
+<td>Mínima</td>
+<td>Mínima</td>
+<td>Total</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>2. Conceptos fundamentales y glosario <a name="2-conceptos-fundamentales"></a></h2>
+<h3>2.1 Redes y comunicaciones</h3>
+<ul>
+<li><strong>IP (Internet Protocol):</strong> Dirección numérica única (ej: 192.168.1.69)</li>
+<li><strong>DNS (Domain Name System):</strong> Traduce nombres a IPs (cloud.hexa38.com → IP)</li>
+<li><strong>HTTPS/SSL/TLS:</strong> Cifrado de comunicaciones web</li>
+<li><strong>Puerto:</strong> Punto de entrada/salida (80=HTTP, 443=HTTPS, 22=SSH)</li>
+<li><strong>Firewall (UFW):</strong> Filtra tráfico de red</li>
+<li><strong>SSH (Secure Shell):</strong> Acceso remoto cifrado</li>
+<li><strong>Tunnel:</strong> Conexión cifrada sin abrir puertos (Cloudflare Tunnel)</li>
+<li><strong>HSTS:</strong> Fuerza siempre HTTPS</li>
+<li><strong>Reverse Proxy:</strong> Servidor que recibe peticiones y las redirige a servicios internos</li>
+<li><strong>WebSocket (ws://):</strong> Conexión bidireccional en tiempo real</li>
+</ul>
+<h3>2.2 Sistemas operativos y servidores</h3>
+<ul>
+<li><strong>Linux (Ubuntu Server):</strong> SO open-source para servidores</li>
+<li><strong>NUC (Next Unit of Computing):</strong> Mini PC Intel de bajo consumo</li>
+<li><strong>Swap:</strong> Memoria virtual en disco (extiende RAM)</li>
+<li><strong>ext4:</strong> Sistema de archivos Linux con journaling</li>
+<li><strong>NTFS:</strong> Sistema de archivos Windows</li>
+<li><strong>Montaje de discos:</strong> Hacer un disco accesible al SO</li>
+<li><strong>fstab:</strong> Archivo que define discos montados al inicio</li>
+<li><strong>systemd:</strong> Sistema de inicio y gestión de servicios</li>
+</ul>
+<h3>2.3 Contenedores y virtualización</h3>
+<ul>
+<li><strong>Docker:</strong> Plataforma de contenedores</li>
+<li><strong>Contenedor:</strong> Entorno aislado y ligero (comparte kernel del host)</li>
+<li><strong>Imagen:</strong> Plantilla de solo lectura</li>
+<li><strong>Docker Compose:</strong> Define múltiples contenedores en un YAML</li>
+<li><strong>Volumen:</strong> Almacenamiento persistente</li>
+<li><strong>Bind mount:</strong> Carpeta del host mapeada al contenedor</li>
+<li><strong>Red bridge:</strong> Red virtual entre contenedores</li>
+</ul>
+<h3>2.4 Base de datos</h3>
+<ul>
+<li><strong>MariaDB:</strong> SGBD relacional (fork de MySQL)</li>
+<li><strong>SQL:</strong> Lenguaje de consultas</li>
+<li><strong>Dump:</strong> Exportación completa de la BD a archivo</li>
+<li><strong>InnoDB:</strong> Motor de almacenamiento transaccional</li>
+</ul>
+<h3>2.5 Cache y rendimiento</h3>
+<ul>
+<li><strong>Redis:</strong> Almacén en memoria para cache</li>
+<li><strong>APCu:</strong> Cache local PHP en memoria</li>
+<li><strong>OPcache:</strong> Cache de bytecode PHP</li>
+</ul>
+<h3>2.6 Seguridad</h3>
+<ul>
+<li><strong>2FA/TOTP:</strong> Autenticación de dos factores temporales</li>
+<li><strong>WHOIS:</strong> Registro público de dueños de dominios</li>
+<li><strong>Contraseña de aplicación:</strong> Credencial específica para apps externas</li>
+<li><strong>Fuerza bruta:</strong> Ataque por prueba sistemática</li>
+<li><strong>Rate limiting:</strong> Limita peticiones por tiempo</li>
+<li><strong>fail2ban:</strong> Banea IPs con intentos fallidos</li>
+</ul>
+<h3>2.7 Dominio y DNS</h3>
+<ul>
+<li><strong>Dominio:</strong> Nombre único en internet (hexa38.com)</li>
+<li><strong>Subdominio:</strong> Extensión (cloud.hexa38.com)</li>
+<li><strong>Cloudflare:</strong> DNS, CDN, túneles, SSL</li>
+<li><strong>Nameservers:</strong> Servidores que resuelven dominios</li>
+<li><strong>Cloudflare Tunnel:</strong> Conexión cifrada sin IP pública</li>
+</ul>
+<h3>2.8 Automatización</h3>
+<ul>
+<li><strong>Cron/Crontab:</strong> Programador de tareas en Linux</li>
+<li><strong>Script:</strong> Archivo con instrucciones secuenciales</li>
+<li><strong>Backup:</strong> Copia de seguridad</li>
+<li><strong>rclone:</strong> Herramienta de sincronización con clouds (Drive, S3, etc.)</li>
+<li><strong>IaC:</strong> Infrastructure as Code</li>
+</ul>
+<h3>2.9 SMART y discos (añadido v2)</h3>
+<ul>
+<li><strong>SMART:</strong> Self-Monitoring, Analysis and Reporting Technology</li>
+<li><strong>Reallocated_Sector_Ct:</strong> Sectores defectuosos reasignados</li>
+<li><strong>Current_Pending_Sector:</strong> Sectores pendientes de reasignar</li>
+<li><strong>Power_On_Hours:</strong> Horas que el disco lleva encendido</li>
+<li><strong>Load_Cycle_Count:</strong> Veces que el cabezal se aparcó (HDD)</li>
+<li><strong>Wear_Leveling_Count:</strong> Desgaste del SSD</li>
+</ul>
+<h3>2.10 Push notifications (añadido v2)</h3>
+<ul>
+<li><strong>notify_push:</strong> Servidor de Nextcloud para sync instantáneo</li>
+<li><strong>WebSocket:</strong> Conexión persistente bidireccional</li>
+<li><strong>trusted_proxies:</strong> IPs en las que Nextcloud confía</li>
+<li><strong>forwarded_for_headers:</strong> Headers de IP real del cliente</li>
+</ul>
+<hr>
+<h2>3. Disciplinas aplicadas <a name="3-disciplinas-aplicadas"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Disciplina</th>
+<th>Aplicación</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SysAdmin</strong></td>
+<td>Ubuntu Server, discos, swap, servicios</td>
+</tr>
+<tr>
+<td><strong>Redes</strong></td>
+<td>DNS, Cloudflare Tunnel, firewall, SSH, Tailscale</td>
+</tr>
+<tr>
+<td><strong>DevOps</strong></td>
+<td>Docker, Docker Compose, despliegue automatizado</td>
+</tr>
+<tr>
+<td><strong>Seguridad</strong></td>
+<td>HTTPS, 2FA, firewall, HSTS, hardening</td>
+</tr>
+<tr>
+<td><strong>Bases de datos</strong></td>
+<td>MariaDB, dumps, restauración, indexación</td>
+</tr>
+<tr>
+<td><strong>Programación/Scripting</strong></td>
+<td>Bash, PowerShell, automatización</td>
+</tr>
+<tr>
+<td><strong>Cloud Computing</strong></td>
+<td>Cloudflare, túneles, off-site backup</td>
+</tr>
+<tr>
+<td><strong>IaC</strong></td>
+<td>docker-compose.yml, .env, scripts versionables</td>
+</tr>
+<tr>
+<td><strong>Forense de sistemas</strong></td>
+<td>Análisis de logs, post-mortem, SMART</td>
+</tr>
+<tr>
+<td><strong>Reverse proxy</strong></td>
+<td>Apache mod_proxy, configuración de Cloudflare</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. Arquitectura del proyecto <a name="4-arquitectura"></a></h2>
+<h3>4.1 Componentes físicos</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Especificación</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NUC Intel N3150</strong></td>
+<td>4 GB RAM, WiFi/Ethernet</td>
+<td>Servidor 24/7</td>
+</tr>
+<tr>
+<td><strong>Disco M.2 SSD</strong></td>
+<td>297 GB</td>
+<td>Sistema operativo Ubuntu</td>
+</tr>
+<tr>
+<td><strong>Disco WD externo</strong></td>
+<td>2 TB (1.8 TB útiles)</td>
+<td>Datos Nextcloud</td>
+</tr>
+<tr>
+<td><strong>Router</strong></td>
+<td>Conexión a internet</td>
+<td>Conectividad</td>
+</tr>
+</tbody></table>
+<h3>4.2 Diagrama de flujo de datos</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  Dispositivo del usuario                 │
+│            (celular, PC, tablet — Android/iOS)           │
+└──────────────────────────┬──────────────────────────────┘
+                           │ https://cloud.hexa38.com
+                           ▼
+                  ┌─────────────────┐
+                  │   Cloudflare    │  ← CDN + SSL + WAF
+                  │      DNS         │
+                  └────────┬────────┘
+                           │ Tunnel cifrado (sin IP pública)
+                           ▼
+                  ┌─────────────────┐
+                  │   cloudflared   │  ← Container nextcloud-tunnel
+                  └────────┬────────┘
+                           │ Red Docker interna (172.18.0.0/16)
+                           ▼
+                  ┌─────────────────┐
+                  │  Apache HTTPD   │  ← Container nextcloud-app:80
+                  │  + mod_proxy    │     (con notify_push.conf)
+                  └────────┬────────┘
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+        ▼                  ▼                  ▼
+  ┌──────────┐      ┌──────────────┐    ┌──────────────┐
+  │  PHP-FPM │      │  /push/  →   │    │              │
+  │ Nextcloud│      │ notify_push  │    │              │
+  └─────┬────┘      │   :7867      │    │              │
+        │            └──────┬──────┘    │              │
+        │                   │            │              │
+        ▼                   ▼            ▼              │
+  ┌──────────┐      ┌──────────────┐    ┌──────────────┐
+  │ MariaDB  │      │    Redis     │    │  /mnt/       │
+  │  :3306   │◄────►│    :6379     │    │  nextcloud/  │
+  └──────────┘      └──────────────┘    │  (1.8 TB SDB)│
+                                         └──────────────┘
+</code></pre>
+<h3>4.3 Contenedores Docker</h3>
+<table>
+<thead>
+<tr>
+<th>Contenedor</th>
+<th>Imagen</th>
+<th>Puerto</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nextcloud-app</code></td>
+<td>nextcloud:latest</td>
+<td>9000:80</td>
+<td>App web + Apache reverse proxy</td>
+</tr>
+<tr>
+<td><code>nextcloud-db</code></td>
+<td>mariadb:10.11</td>
+<td>3306 (interno)</td>
+<td>Base de datos</td>
+</tr>
+<tr>
+<td><code>nextcloud-redis</code></td>
+<td>redis:alpine</td>
+<td>6379 (interno)</td>
+<td>Cache + file locking</td>
+</tr>
+<tr>
+<td><code>nextcloud-cron</code></td>
+<td>nextcloud:latest</td>
+<td>-</td>
+<td>Tareas programadas</td>
+</tr>
+<tr>
+<td><code>nextcloud-tunnel</code></td>
+<td>cloudflare/cloudflared</td>
+<td>-</td>
+<td>Túnel a Internet</td>
+</tr>
+<tr>
+<td><code>nextcloud-push</code></td>
+<td>nextcloud:latest</td>
+<td>7867 (interno)</td>
+<td>Notify push (sync rápido)</td>
+</tr>
+</tbody></table>
+<h3>4.4 Estructura de archivos en el host</h3>
+<pre><code>/home/aldo/nextcloud/
+├── docker-compose.yml        ← Definición de contenedores
+├── .env                       ← Variables sensibles (passwords, tokens)
+├── hsts.conf                  ← Headers HSTS
+├── data-protect.conf          ← Protección /data
+├── notify_push.conf           ← Apache reverse proxy a notify_push
+├── backup.sh                  ← Script de backup automático
+└── backup.sh.bak              ← Backup del script
+
+/mnt/nextcloud/                ← Disco SDB de 1.8 TB (ext4)
+├── html/                      ← Archivos PHP de Nextcloud
+│   └── config/
+│       └── config.php         ← Configuración principal
+├── data/                      ← Archivos de los usuarios
+│   ├── Aldz/
+│   ├── Alanav/
+│   ├── Bianny Escobar/
+│   ├── Kevin/
+│   └── Tiendas_PlayinVR/
+├── db/                        ← Archivos de MariaDB
+└── backups/                   ← Backups automáticos
+    ├── 2026-04-26_03-00/
+    │   ├── database.sql
+    │   ├── userdata/
+    │   ├── config/
+    │   ├── docker-compose.yml
+    │   └── .env
+    └── backup.log
+</code></pre>
+<hr>
+<h1>Parte 2 — Implementación</h1>
+<h2>5. Desarrollo paso a paso (Fases 1-7) <a name="5-desarrollo-fases"></a></h2>
+<h3>Fase 1: Configuración inicial en PC Windows (Prototipo)</h3>
+<ul>
+<li>Instalación de Docker Desktop con WSL2</li>
+<li>Creación del <code>docker-compose.yml</code></li>
+<li>Variables de entorno en <code>.env</code></li>
+<li>Primer arranque: <code>docker compose up -d</code></li>
+<li>Verificación: <code>curl http://localhost:9000/status.php</code></li>
+</ul>
+<h3>Fase 2: Registro de dominio y acceso remoto</h3>
+<ul>
+<li>Registro de <strong>hexa38.com</strong> en Cloudflare ($10.11 USD/año)</li>
+<li>Configuración de Cloudflare Tunnel</li>
+<li>Subdominio <code>cloud.hexa38.com</code> → <code>nextcloud-app:80</code></li>
+<li>HTTPS automático + HSTS</li>
+</ul>
+<h3>Fase 3: Optimización y seguridad</h3>
+<ul>
+<li><code>trusted_domains</code>: cloud.hexa38.com, localhost, IP local</li>
+<li>Redis como cache distribuido + file locking</li>
+<li>SMTP con Gmail</li>
+<li>2FA/TOTP obligatorio</li>
+<li>Resolución de avisos de seguridad</li>
+<li>Migraciones MIME e índices BD</li>
+</ul>
+<h3>Fase 4: Sistema de backups automáticos</h3>
+<p>Cron diario a las 3 AM. El script:</p>
+<ol>
+<li>Activa modo mantenimiento</li>
+<li>Exporta BD con <code>mariadb-dump</code></li>
+<li>Copia datos de usuarios con <code>docker cp</code></li>
+<li>Copia configuración</li>
+<li>Copia archivos Docker</li>
+<li>Desactiva mantenimiento</li>
+<li>Limpia backups antiguos (retención 7 días)</li>
+</ol>
+<h3>Fase 5: Migración a servidor dedicado (NUC)</h3>
+<ul>
+<li>Instalación Ubuntu Server 24.04 LTS</li>
+<li>Formateo del disco WD 2 TB de NTFS a ext4</li>
+<li>Montaje permanente en <code>/mnt/nextcloud</code></li>
+<li>Instalación Docker Engine</li>
+<li>Transferencia del backup vía SCP</li>
+<li>Restauración completa</li>
+<li>Redirección del Cloudflare Tunnel</li>
+</ul>
+<h3>Fase 6: Hardening del servidor</h3>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Herramienta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Swap 4 GB</td>
+<td>fallocate + mkswap</td>
+<td>Memoria virtual</td>
+</tr>
+<tr>
+<td>Firewall</td>
+<td>UFW</td>
+<td>Solo SSH y Nextcloud</td>
+</tr>
+<tr>
+<td>Updates auto</td>
+<td>unattended-upgrades</td>
+<td>Parches de seguridad</td>
+</tr>
+<tr>
+<td>Rotación logs</td>
+<td>Docker daemon.json</td>
+<td>Limita logs a 10 MB</td>
+</tr>
+<tr>
+<td>Trusted proxies</td>
+<td>config.php</td>
+<td>IP real del usuario</td>
+</tr>
+<tr>
+<td>Backup diario</td>
+<td>cron + Bash</td>
+<td>3 AM, 7 días</td>
+</tr>
+</tbody></table>
+<h3>Fase 7: Resolución de avisos y SSH remoto</h3>
+<p><strong>Avisos resueltos:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aviso</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Directorio /data accesible</td>
+<td>data-protect.conf en Apache</td>
+</tr>
+<tr>
+<td>Errores en logs</td>
+<td>Limpieza histórica</td>
+</tr>
+<tr>
+<td>2FA no obligatorio</td>
+<td>Activación forzada</td>
+</tr>
+<tr>
+<td>Migraciones MIME</td>
+<td><code>occ maintenance:repair --include-expensive</code></td>
+</tr>
+<tr>
+<td>Índices BD faltantes</td>
+<td><code>occ db:add-missing-indices</code></td>
+</tr>
+<tr>
+<td>HSTS no configurado</td>
+<td>hsts.conf montado</td>
+</tr>
+<tr>
+<td>Región telefónica</td>
+<td><code>default_phone_region=PE</code></td>
+</tr>
+<tr>
+<td>Mantenimiento</td>
+<td><code>maintenance_window_start=5</code> UTC</td>
+</tr>
+</tbody></table>
+<p><strong>Tailscale para SSH remoto:</strong></p>
+<ul>
+<li>VPN mesh basada en WireGuard</li>
+<li>IPs privadas 100.x.x.x</li>
+<li>Acceso desde cualquier red sin abrir puertos</li>
+</ul>
+<hr>
+<h2>6. Archivos de configuración <a name="6-archivos-configuración"></a></h2>
+<h3>6.1 docker-compose.yml (versión final actualizada)</h3>
+<pre><code class="language-yaml">services:
+  # Base de datos
+  db:
+    image: mariadb:10.11
+    container_name: nextcloud-db
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - /mnt/nextcloud/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    networks:
+      - backend
+
+  # Cache Redis
+  redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - backend
+
+  # Aplicación Nextcloud
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud-app
+    restart: always
+    ports:
+      - 9000:80
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - /mnt/nextcloud/html:/var/www/html
+      - /mnt/nextcloud/data:/var/www/html/data
+      - ./hsts.conf:/etc/apache2/conf-enabled/hsts.conf:ro
+      - ./data-protect.conf:/etc/apache2/conf-enabled/data-protect.conf:ro
+      - ./notify_push.conf:/etc/apache2/conf-enabled/notify_push.conf:ro
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD=${REDIS_PASSWORD}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN} localhost
+      - OVERWRITEPROTOCOL=https
+      - OVERWRITECLIURL=https://${DOMAIN}
+      - OVERWRITEHOST=${DOMAIN}
+      - PHP_MEMORY_LIMIT=1G
+      - PHP_UPLOAD_LIMIT=16G
+    networks:
+      - backend
+
+  # Cron
+  cron:
+    image: nextcloud:latest
+    container_name: nextcloud-cron
+    restart: always
+    volumes:
+      - /mnt/nextcloud/html:/var/www/html
+      - /mnt/nextcloud/data:/var/www/html/data
+    entrypoint: /cron.sh
+    depends_on:
+      - app
+    networks:
+      - backend
+
+  # Cloudflare Tunnel
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: nextcloud-tunnel
+    restart: always
+    command: tunnel run --token ${CLOUDFLARE_TOKEN}
+    depends_on:
+      - app
+    networks:
+      - backend
+
+  # Notify Push (sync instantáneo) — añadido en Fase 10
+  notify_push:
+    image: nextcloud:latest
+    container_name: nextcloud-push
+    restart: always
+    environment:
+      - NEXTCLOUD_URL=http://app:80    # IMPORTANTE: interno, no público
+    command: /var/www/html/custom_apps/notify_push/bin/x86_64/notify_push /var/www/html/config/config.php
+    volumes:
+      - /mnt/nextcloud/html:/var/www/html:ro
+    depends_on:
+      - app
+    networks:
+      - backend
+
+volumes:
+  nextcloud_html:
+  nextcloud_db:
+  nextcloud_data:
+
+networks:
+  backend:
+    driver: bridge
+</code></pre>
+<h3>6.2 .env (variables sensibles)</h3>
+<pre><code class="language-bash">DOMAIN=cloud.hexa38.com
+MYSQL_ROOT_PASSWORD=********
+MYSQL_PASSWORD=********
+MYSQL_DATABASE=nextcloud
+MYSQL_USER=nextcloud
+REDIS_PASSWORD=********
+CLOUDFLARE_TOKEN=********
+</code></pre>
+<h3>6.3 hsts.conf</h3>
+<pre><code class="language-apache">&lt;IfModule mod_headers.c&gt;
+    Header always set Strict-Transport-Security &quot;max-age=15552000; includeSubDomains&quot;
+&lt;/IfModule&gt;
+</code></pre>
+<h3>6.4 data-protect.conf</h3>
+<pre><code class="language-apache">&lt;Directory /var/www/html/data&gt;
+    Require all denied
+    Options -Indexes
+&lt;/Directory&gt;
+</code></pre>
+<h3>6.5 notify_push.conf (añadido v2)</h3>
+<pre><code class="language-apache"># Cargar módulos de proxy si no están cargados
+&lt;IfModule !proxy_module&gt;
+    LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+&lt;/IfModule&gt;
+&lt;IfModule !proxy_http_module&gt;
+    LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+&lt;/IfModule&gt;
+&lt;IfModule !proxy_wstunnel_module&gt;
+    LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so
+&lt;/IfModule&gt;
+
+# Reverse proxy a notify_push
+ProxyPass         &quot;/push/ws&quot;  &quot;ws://nextcloud-push:7867/ws&quot;
+ProxyPassReverse  &quot;/push/ws&quot;  &quot;ws://nextcloud-push:7867/ws&quot;
+ProxyPass         &quot;/push/&quot;    &quot;http://nextcloud-push:7867/&quot;
+ProxyPassReverse  &quot;/push/&quot;    &quot;http://nextcloud-push:7867/&quot;
+</code></pre>
+<h3>6.6 backup.sh (versión 2 con off-site)</h3>
+<pre><code class="language-bash">#!/bin/bash
+# Nextcloud Backup Script v2 - Local + Google Drive
+
+set -e
+DATE=$(date +%Y-%m-%d_%H-%M)
+BACKUP_DIR=&quot;/mnt/nextcloud/backups/$DATE&quot;
+LOG_FILE=&quot;/mnt/nextcloud/backups/backup.log&quot;
+RETENTION_LOCAL=7
+RETENTION_REMOTE=14
+RCLONE_REMOTE=&quot;gdrive:nextcloud-backups&quot;
+
+export RCLONE_CONFIG=/home/aldo/.config/rclone/rclone.conf
+set -a; source /home/aldo/nextcloud/.env; set +a
+
+log() {
+    echo &quot;[$(date &#39;+%Y-%m-%d %H:%M:%S&#39;)] $1&quot; | tee -a &quot;$LOG_FILE&quot;
+}
+
+log &quot;========== INICIO BACKUP ==========&quot;
+mkdir -p &quot;$BACKUP_DIR&quot;
+
+# 1. Modo mantenimiento ON
+docker exec -u 0 nextcloud-app bash -c &quot;php occ maintenance:mode --on&quot;
+trap &#39;docker exec -u 0 nextcloud-app bash -c &quot;php occ maintenance:mode --off&quot; || true; exit 1&#39; ERR
+
+# 2. Backup BD
+docker exec nextcloud-db bash -c &quot;mariadb-dump -u nextcloud -p\&quot;$MYSQL_PASSWORD\&quot; nextcloud --single-transaction&quot; &gt; &quot;$BACKUP_DIR/database.sql&quot;
+
+# 3. Backup datos
+docker cp nextcloud-app:/var/www/html/data &quot;$BACKUP_DIR/userdata&quot;
+
+# 4. Backup config
+docker cp nextcloud-app:/var/www/html/config &quot;$BACKUP_DIR/config&quot;
+
+# 5. Archivos Docker
+cp /home/aldo/nextcloud/docker-compose.yml &quot;$BACKUP_DIR/&quot;
+cp /home/aldo/nextcloud/.env &quot;$BACKUP_DIR/&quot;
+cp /home/aldo/nextcloud/hsts.conf &quot;$BACKUP_DIR/&quot;
+
+# 6. Mantenimiento OFF
+docker exec -u 0 nextcloud-app bash -c &quot;php occ maintenance:mode --off&quot;
+trap - ERR
+
+# 7. Limpiar locales antiguos
+ls -dt /mnt/nextcloud/backups/20*/ | tail -n +$((RETENTION_LOCAL + 1)) | xargs -r rm -rf
+
+# 8. Subir a Google Drive
+if command -v rclone &amp;&gt; /dev/null; then
+    TARFILE=&quot;/tmp/nextcloud_backup_$DATE.tar.gz&quot;
+    tar czf &quot;$TARFILE&quot; -C /mnt/nextcloud/backups &quot;$DATE&quot;
+    rclone copy &quot;$TARFILE&quot; &quot;$RCLONE_REMOTE/&quot; --transfers=1 --retries=3
+    rm -f &quot;$TARFILE&quot;
+
+    # Limpiar remotos antiguos
+    rclone lsf &quot;$RCLONE_REMOTE/&quot; --files-only | sort | head -n -&quot;$RETENTION_REMOTE&quot; | xargs -r -I{} rclone deletefile &quot;$RCLONE_REMOTE/{}&quot;
+fi
+
+log &quot;========== BACKUP COMPLETADO ==========&quot;
+</code></pre>
+<h3>6.7 Cron de root</h3>
+<pre><code class="language-bash"># Ver con: sudo crontab -l
+0 3 * * * /home/aldo/nextcloud/backup.sh
+*/5 * * * * curl -fsS --retry 3 --max-time 30 https://cloud.hexa38.com/status.php &gt; /dev/null 2&gt;&amp;1 &amp;&amp; curl -fsS --max-time 10 https://hc-ping.com/TU_UUID &gt; /dev/null 2&gt;&amp;1
+</code></pre>
+<h3>6.8 Healthchecks en docker-compose.yml (añadido v3.1)</h3>
+<p>Cada servicio crítico tiene un <code>healthcheck</code> que monitorea su salud y permite a Docker reiniciarlo automáticamente si falla.</p>
+<pre><code class="language-yaml"># db (MariaDB)
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;healthcheck.sh&quot;, &quot;--connect&quot;, &quot;--innodb_initialized&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+
+# redis
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;redis-cli -a \&quot;$$REDIS_PASSWORD\&quot; ping | grep -q PONG&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+# app (Apache+PHP)
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;php -r &#39;exit(@file_get_contents(\&quot;http://localhost/status.php\&quot;) ? 0 : 1);&#39;&quot;]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+# notify_push
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pgrep -f notify_push &gt; /dev/null&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+</code></pre>
+<p><strong>Verificar:</strong></p>
+<pre><code class="language-bash">docker ps --format &quot;table {{.Names}}\t{{.Status}}&quot;
+# Esperado: cada uno con estado &quot;(healthy)&quot;
+</code></pre>
+<hr>
+<h2>7. Infrastructure as Code <a name="7-iac"></a></h2>
+<h3>7.1 Definición</h3>
+<p>Gestionar infraestructura mediante código versionable, en lugar de configuraciones manuales.</p>
+<h3>7.2 Beneficios</h3>
+<ul>
+<li><strong>Reproducibilidad</strong>: misma config = mismo resultado</li>
+<li><strong>Versionado</strong>: Git registra cambios</li>
+<li><strong>Documentación automática</strong>: el código es la documentación</li>
+<li><strong>Escalabilidad</strong>: replicar es copiar archivos</li>
+</ul>
+<h3>7.3 Cómo reproducir el proyecto</h3>
+<pre><code class="language-bash"># 1. Instalar Docker
+curl -fsSL https://get.docker.com | sudo sh
+
+# 2. Copiar archivos de configuración
+scp -r usuario@servidor-origen:~/nextcloud ~/nextcloud
+
+# 3. Levantar infraestructura
+cd ~/nextcloud &amp;&amp; docker compose up -d
+
+# 4. Restaurar backup
+docker exec -i nextcloud-db bash -c \
+  &#39;mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud&#39; &lt; backup/database.sql
+</code></pre>
+<hr>
+<h2>8. Costos del proyecto <a name="8-costos"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Costo</th>
+<th>Frecuencia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dominio hexa38.com</td>
+<td>$10.11 USD</td>
+<td>Anual</td>
+</tr>
+<tr>
+<td>Cloudflare Tunnel</td>
+<td>Gratis</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Nextcloud</td>
+<td>Gratis</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Docker Engine</td>
+<td>Gratis</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ubuntu Server</td>
+<td>Gratis</td>
+<td>-</td>
+</tr>
+<tr>
+<td>NUC (hardware)</td>
+<td>Ya existente</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Disco WD 2 TB</td>
+<td>Ya existente</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Electricidad (~15W)</td>
+<td>~$2-3 USD</td>
+<td>Mensual</td>
+</tr>
+<tr>
+<td><strong>Google Drive</strong> (backup off-site)</td>
+<td>Gratis (15 GB)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Tailscale</strong></td>
+<td>Gratis</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>TOTAL ANUAL</strong></td>
+<td><strong>~$46 USD</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Ahorro vs servicios comerciales: 60-68%</strong></p>
+<hr>
+<h1>Parte 3 — Evolución y Mejoras Aplicadas</h1>
+<h2>9. Fase 8: Incidente y recuperación de datos <a name="9-incidente"></a></h2>
+<h3>9.1 ¿Qué pasó?</h3>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>Nextcloud aparecía como instalación nueva</li>
+<li>Solo 1 usuario admin visible (5 usuarios desaparecieron)</li>
+<li>20 errores en logs</li>
+<li>Avisos de &quot;Modo mantenimiento&quot; en clientes</li>
+</ul>
+<p><strong>Causa raíz identificada:</strong></p>
+<ol>
+<li><strong>Pila CMOS agotada</strong> → BIOS reseteada → múltiples encendidos/apagados</li>
+<li><strong>Apagado forzado</strong> durante operaciones de Docker</li>
+<li><strong>Filesystem ext4 quedó &quot;dirty&quot;</strong> tras apagado forzado</li>
+<li><strong>Recreación de contenedor</strong> durante el problema</li>
+<li><strong>Bind mount</strong> apareció vacío al backend después del reboot</li>
+</ol>
+<h3>9.2 Diagnóstico aplicado (paso a paso)</h3>
+<pre><code class="language-bash"># 1. Estado de contenedores
+docker ps
+docker ps -a
+
+# 2. Estado de discos y montajes
+mount | grep nextcloud
+lsblk -f
+df -h /mnt/nextcloud
+sudo du -sh /mnt/nextcloud/*
+
+# 3. Verificar volúmenes Docker
+docker volume ls
+docker inspect nextcloud-app --format &#39;{{range .Mounts}}{{.Type}} {{.Source}} -&gt; {{.Destination}}{{println}}{{end}}&#39;
+
+# 4. Buscar backups
+ls -la /mnt/nextcloud/backups/
+sudo find / -name &quot;*.sql&quot; 2&gt;/dev/null | grep -v snap
+
+# 5. Forzar journal replay del filesystem
+cd /home/aldo/nextcloud &amp;&amp; docker compose stop
+sudo umount /mnt/nextcloud
+sudo mount /mnt/nextcloud
+docker compose start
+</code></pre>
+<h3>9.3 Procedimiento de restauración</h3>
+<pre><code class="language-bash"># Variables
+export BACKUP=/mnt/nextcloud/backups/2026-04-24_03-00
+set -a; source /home/aldo/nextcloud/.env; set +a
+
+# Paso 1: Modo mantenimiento + parar contenedores que tocan datos
+docker exec -u www-data nextcloud-app php occ maintenance:mode --on
+cd /home/aldo/nextcloud
+docker compose stop app cron tunnel notify_push
+
+# Paso 2: Restaurar BD
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; -e \
+  &quot;DROP DATABASE IF EXISTS nextcloud; CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;&quot;
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud &lt; $BACKUP/database.sql
+
+# Verificar usuarios
+docker exec nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud -e &quot;SELECT uid FROM oc_users;&quot;
+
+# Paso 3: Restaurar userdata
+sudo rm -rf /mnt/nextcloud/data/* /mnt/nextcloud/data/.[!.]*
+sudo cp -a $BACKUP/userdata/. /mnt/nextcloud/data/
+sudo chown -R www-data:www-data /mnt/nextcloud/data
+
+# Paso 4: Restaurar config
+sudo cp -a $BACKUP/config/. /mnt/nextcloud/html/config/
+sudo chown -R www-data:www-data /mnt/nextcloud/html/config
+
+# Paso 5: Reiniciar y validar
+docker compose start
+sleep 15
+docker exec -u www-data nextcloud-app php occ maintenance:mode --off
+docker exec -u www-data nextcloud-app php occ user:list
+docker exec -u www-data nextcloud-app php occ files:scan --all
+</code></pre>
+<h3>9.4 Lecciones aprendidas</h3>
+<table>
+<thead>
+<tr>
+<th>❌ Evitar</th>
+<th>✅ Hacer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apagado forzado</td>
+<td><code>sudo shutdown -h now</code></td>
+</tr>
+<tr>
+<td><code>docker compose down -v</code></td>
+<td><code>docker compose down</code> (sin -v)</td>
+</tr>
+<tr>
+<td>Editar compose sin backup</td>
+<td><code>bash backup.sh</code> antes de cambios</td>
+</tr>
+<tr>
+<td>Tener Snap Nextcloud</td>
+<td><code>sudo snap remove --purge nextcloud</code></td>
+</tr>
+<tr>
+<td>Pila CMOS sin cambiar</td>
+<td>Cambiar cada 5-10 años</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>10. Fase 9: Backup off-site (Google Drive) <a name="10-backup-offsite"></a></h2>
+<h3>10.1 Por qué off-site</h3>
+<p>El backup local protege contra:</p>
+<ul>
+<li>✅ Borrado accidental</li>
+<li>✅ Corrupción del filesystem</li>
+</ul>
+<p>Pero NO protege contra:</p>
+<ul>
+<li>❌ Falla total del disco SDB</li>
+<li>❌ Robo / incendio del NUC</li>
+<li>❌ Ransomware que cifre todo el disco</li>
+</ul>
+<p><strong>Solución: regla 3-2-1</strong></p>
+<ul>
+<li><strong>3</strong> copias de los datos</li>
+<li><strong>2</strong> medios diferentes</li>
+<li><strong>1</strong> copia off-site</li>
+</ul>
+<h3>10.2 Configuración de rclone con Google Drive</h3>
+<pre><code class="language-bash"># 1. Instalar rclone
+sudo apt install -y rclone
+
+# 2. Configurar Google Drive (modo headless)
+rclone config
+
+# Respuestas:
+#   n (new remote)
+#   name: gdrive
+#   storage: drive
+#   client_id: (vacío)
+#   client_secret: (vacío)
+#   scope: drive
+#   service_account_file: (vacío)
+#   advanced config: n
+#   auto config: n   ← IMPORTANTE: headless
+
+# Te dará un comando como:
+#   rclone authorize &quot;drive&quot; &quot;eyJzY29wZSI6....&quot;
+
+# 3. En Windows con navegador (PowerShell):
+winget install Rclone.Rclone
+rclone authorize &quot;drive&quot; &quot;eyJzY29wZSI6....&quot;
+# Autoriza en navegador, copia el token JSON
+
+# 4. Pega el token en el NUC en config_token&gt;
+# 5. Responde: n, y, q
+
+# 6. Verificar
+rclone lsd gdrive:
+rclone mkdir gdrive:nextcloud-backups
+</code></pre>
+<h3>10.3 Modificar backup.sh</h3>
+<p>Añadir al script:</p>
+<pre><code class="language-bash">export RCLONE_CONFIG=/home/aldo/.config/rclone/rclone.conf
+</code></pre>
+<p>Y al final:</p>
+<pre><code class="language-bash">TARFILE=&quot;/tmp/nextcloud_backup_$DATE.tar.gz&quot;
+tar czf &quot;$TARFILE&quot; -C /mnt/nextcloud/backups &quot;$DATE&quot;
+rclone copy &quot;$TARFILE&quot; &quot;gdrive:nextcloud-backups/&quot; --transfers=1 --retries=3
+rm -f &quot;$TARFILE&quot;
+
+# Retención remota: 14 días
+rclone lsf &quot;gdrive:nextcloud-backups/&quot; --files-only | sort | head -n -14 | xargs -r -I{} rclone deletefile &quot;gdrive:nextcloud-backups/{}&quot;
+</code></pre>
+<h3>10.4 Verificación</h3>
+<pre><code class="language-bash">sudo bash /home/aldo/nextcloud/backup.sh
+rclone ls gdrive:nextcloud-backups/
+rclone size gdrive:nextcloud-backups/
+</code></pre>
+<hr>
+<h2>11. Fase 10: Notify Push (sincronización instantánea) <a name="11-notify-push"></a></h2>
+<h3>11.1 Qué hace</h3>
+<p>Permite que los clientes desktop/móvil reciban cambios <strong>en tiempo real</strong> vía WebSocket, en vez de hacer polling cada 30 segundos.</p>
+<h3>11.2 Arquitectura</h3>
+<pre><code>Cliente desktop ──ws──► Cloudflare ──ws──► cloudflared
+                                              │
+                                              ▼
+                                          Apache (nextcloud-app)
+                                              │
+                                       /push/* → ProxyPass
+                                              │
+                                              ▼
+                                        nextcloud-push:7867
+                                              │
+                                              ▼
+                                          Redis (notificaciones)
+</code></pre>
+<h3>11.3 Pasos de configuración (resumen)</h3>
+<h4>Paso 1: Añadir contenedor <code>notify_push</code> a docker-compose.yml</h4>
+<pre><code class="language-yaml">notify_push:
+  image: nextcloud:latest
+  container_name: nextcloud-push
+  restart: always
+  environment:
+    - NEXTCLOUD_URL=http://app:80    # ← Crítico: interno, no público
+  command: /var/www/html/custom_apps/notify_push/bin/x86_64/notify_push /var/www/html/config/config.php
+  volumes:
+    - /mnt/nextcloud/html:/var/www/html:ro
+  depends_on:
+    - app
+  networks:
+    - backend
+</code></pre>
+<h4>Paso 2: Crear notify_push.conf (Apache reverse proxy)</h4>
+<pre><code class="language-bash">cat &gt; /home/aldo/nextcloud/notify_push.conf &lt;&lt; &#39;EOF&#39;
+&lt;IfModule !proxy_module&gt;
+    LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+&lt;/IfModule&gt;
+&lt;IfModule !proxy_http_module&gt;
+    LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+&lt;/IfModule&gt;
+&lt;IfModule !proxy_wstunnel_module&gt;
+    LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so
+&lt;/IfModule&gt;
+
+ProxyPass         &quot;/push/ws&quot;  &quot;ws://nextcloud-push:7867/ws&quot;
+ProxyPassReverse  &quot;/push/ws&quot;  &quot;ws://nextcloud-push:7867/ws&quot;
+ProxyPass         &quot;/push/&quot;    &quot;http://nextcloud-push:7867/&quot;
+ProxyPassReverse  &quot;/push/&quot;    &quot;http://nextcloud-push:7867/&quot;
+EOF
+</code></pre>
+<h4>Paso 3: Montar config en docker-compose.yml (servicio app)</h4>
+<pre><code class="language-yaml">volumes:
+  - ./notify_push.conf:/etc/apache2/conf-enabled/notify_push.conf:ro
+</code></pre>
+<h4>Paso 4: Recrear contenedores</h4>
+<pre><code class="language-bash">cd /home/aldo/nextcloud
+docker compose up -d --force-recreate app notify_push
+</code></pre>
+<h4>Paso 5: Configurar trusted_proxies y forwarded_for_headers</h4>
+<pre><code class="language-bash">docker exec -u www-data nextcloud-app php occ config:system:set forwarded_for_headers 0 --value=&quot;HTTP_X_FORWARDED_FOR&quot;
+</code></pre>
+<h4>Paso 6: Setup final</h4>
+<pre><code class="language-bash">set -a; source /home/aldo/nextcloud/.env; set +a
+docker exec -u www-data nextcloud-app php occ notify_push:setup https://${DOMAIN}/push
+</code></pre>
+<p>✅ Salida esperada:</p>
+<pre><code>✓ redis is configured
+✓ push server is receiving redis messages
+✓ push server can load mount info from database
+✓ push server can connect to the Nextcloud server
+✓ push server is a trusted proxy
+✓ push server is running the same version as the app
+configuration saved
+</code></pre>
+<h3>11.4 Por qué <code>NEXTCLOUD_URL=http://app:80</code> y no el dominio público</h3>
+<p>Si pones <code>NEXTCLOUD_URL=https://${DOMAIN}</code>:</p>
+<ul>
+<li>notify_push hace requests al dominio público</li>
+<li>Cloudflare añade tu IP pública al X-Forwarded-For</li>
+<li>Esa IP no está en trusted_proxies</li>
+<li>Falla la validación de proxy confiable</li>
+</ul>
+<p>Con <code>NEXTCLOUD_URL=http://app:80</code>:</p>
+<ul>
+<li>notify_push usa la red Docker interna (172.18.0.0/16)</li>
+<li>Esa red SÍ está en trusted_proxies</li>
+<li>Todo funciona limpiamente</li>
+<li><strong>Los clientes externos siguen usando <a href="https://cloud.hexa38.com/push">https://cloud.hexa38.com/push</a></strong> (lo que configuraste con <code>notify_push:setup</code>)</li>
+</ul>
+<hr>
+<h2>12. Fase 11: Diagnóstico forense del sistema <a name="12-diagnóstico-forense"></a></h2>
+<h3>12.1 Por qué se hizo</h3>
+<p>Tras el incidente, se realizó un análisis profundo del hardware y software para descartar problemas físicos y entender qué causó el incidente.</p>
+<h3>12.2 Hallazgos</h3>
+<p><strong>Hardware:</strong></p>
+<ul>
+<li>✅ <strong>CPU N3150</strong>: temperatura normal (52-57°C)</li>
+<li>✅ <strong>RAM 3.68 GB</strong>: sin errores EDAC/MCE, justa pero suficiente</li>
+<li>✅ <strong>Disco SDB (datos 1.8 TB)</strong>: SMART PASSED, todos los contadores en 0</li>
+<li>🟡 <strong>Disco SDA (sistema)</strong>: HDD con 11 sectores reasignados, envejecido pero funcional</li>
+<li>✅ <strong>Sin kernel panics, sin OOM</strong></li>
+</ul>
+<p><strong>Software:</strong></p>
+<ul>
+<li>✅ Reboots cortos explicados: usuario configurando BIOS tras cambio de pila CMOS</li>
+<li>✅ Apagados limpios (no crashes)</li>
+<li>⚠️ Snap Nextcloud detectado (a eliminar)</li>
+</ul>
+<h3>12.3 Comandos de diagnóstico clave</h3>
+<pre><code class="language-bash"># Hardware
+sudo smartctl -H /dev/sda                    # Salud rápida
+sudo smartctl -A /dev/sda                    # Atributos detallados
+sudo sensors                                  # Temperaturas
+free -h                                       # RAM
+sudo dmesg | grep -i error                    # Errores kernel
+
+# Sistema
+uptime                                        # Tiempo encendido
+sudo last reboot                              # Historial de reboots
+sudo journalctl --list-boots                  # Lista de boots
+sudo journalctl -b -1 | tail -50              # Logs del boot anterior
+systemctl --failed                            # Servicios caídos
+
+# Forense
+sudo journalctl --since &quot;2 days ago&quot; | grep -iE &quot;panic|oops|killed&quot;
+sudo journalctl -k -b 0 | grep -iE &quot;memory|edac|mce&quot;
+cat /home/aldo/.bash_history | tail -100
+</code></pre>
+<hr>
+<h2>13. Fase 12: Sistema de monitoreo en capas <a name="13-monitoreo"></a></h2>
+<h3>13.1 Filosofía: defense in depth</h3>
+<p>Tres capas independientes que se complementan:</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│  CAPA 1: Auto-recuperación (Docker healthchecks)             │
+│     Inmediato (silencioso) — Reinicia procesos colgados      │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│  CAPA 2: Monitoreo de aplicación (Healthchecks.io)           │
+│     10-15 min — Avisa si Nextcloud no responde               │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│  CAPA 3: Monitoreo de infraestructura (Cloudflare)           │
+│     1-2 min ⚡ — Avisa si tunnel/NUC pierde conectividad    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>13.2 Capa 1 — Healthchecks de Docker</h3>
+<p>Cada contenedor crítico tiene su healthcheck nativo. Si el healthcheck falla N veces consecutivas, el contenedor se marca <code>unhealthy</code> y Docker lo reinicia (gracias a <code>restart: always</code>).</p>
+<p><strong>Healthchecks añadidos al <code>docker-compose.yml</code>:</strong></p>
+<h4>nextcloud-db (MariaDB)</h4>
+<pre><code class="language-yaml">    healthcheck:
+      test: [&quot;CMD&quot;, &quot;healthcheck.sh&quot;, &quot;--connect&quot;, &quot;--innodb_initialized&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+</code></pre>
+<p>Usa el script oficial de la imagen mariadb:10.11.</p>
+<h4>nextcloud-redis</h4>
+<pre><code class="language-yaml">    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;redis-cli -a \&quot;$$REDIS_PASSWORD\&quot; ping | grep -q PONG&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+</code></pre>
+<p>Verifica que Redis responde a <code>PING</code> con <code>PONG</code>.</p>
+<h4>nextcloud-app (Apache + PHP)</h4>
+<pre><code class="language-yaml">    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;php -r &#39;exit(@file_get_contents(\&quot;http://localhost/status.php\&quot;) ? 0 : 1);&#39;&quot;]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+</code></pre>
+<p>PHP en lugar de curl (la imagen Nextcloud no trae curl). Verifica que <code>/status.php</code> responde.</p>
+<h4>nextcloud-push (notify_push)</h4>
+<pre><code class="language-yaml">    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pgrep -f notify_push &gt; /dev/null&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+</code></pre>
+<p>Verifica que el proceso <code>notify_push</code> esté vivo dentro del contenedor.</p>
+<h4>Sin healthcheck: cron y tunnel</h4>
+<ul>
+<li><code>nextcloud-cron</code>: ejecuta tareas, no expone endpoint</li>
+<li><code>nextcloud-tunnel</code>: ya monitoreado por Cloudflare (Capa 3)</li>
+</ul>
+<p><strong>Verificar healthchecks:</strong></p>
+<pre><code class="language-bash">docker ps --format &quot;table {{.Names}}\t{{.Status}}&quot;
+# Esperado: cada uno con (healthy)
+
+docker inspect nextcloud-app --format &#39;{{json .State.Health}}&#39; | python3 -m json.tool
+</code></pre>
+<h3>13.3 Capa 2 — Healthchecks.io (servicio externo gratuito)</h3>
+<p>Servicio &quot;dead-man-switch&quot;: si <strong>deja de recibir</strong> un ping, te avisa.</p>
+<p><strong>Por qué es genial:</strong></p>
+<ul>
+<li>✅ Gratis hasta 20 monitores</li>
+<li>✅ Detecta si tu casa pierde Internet (el NUC no puede enviar ping)</li>
+<li>✅ Detecta si el NUC está apagado</li>
+<li>✅ Detecta si Cloudflare cae</li>
+<li>✅ Detecta si Nextcloud devuelve error</li>
+<li>✅ Notifica por email, Telegram, Discord, Slack, Webhook</li>
+</ul>
+<h4>Setup paso a paso</h4>
+<p><strong>1. Crear cuenta en <a href="https://healthchecks.io">https://healthchecks.io</a></strong> (gratis)</p>
+<p><strong>2. Crear un check</strong> llamado <code>Nextcloud Hexa38</code>:</p>
+<ul>
+<li>Schedule: Simple</li>
+<li>Period: 10 minutes</li>
+<li>Grace Time: 5 minutes</li>
+<li>Slug: nextcloud-hexa38 (opcional)</li>
+</ul>
+<p><strong>3. Copiar la Ping URL</strong> (algo como <code>https://hc-ping.com/UUID</code>)</p>
+<p><strong>4. Probar manualmente</strong> desde el NUC:</p>
+<pre><code class="language-bash">curl -fsS https://hc-ping.com/TU_UUID
+# Debe responder: OK
+</code></pre>
+<p><strong>5. Añadir al cron de root</strong> (sin abrir editor):</p>
+<pre><code class="language-bash">(sudo crontab -l 2&gt;/dev/null; echo &quot;*/5 * * * * curl -fsS --retry 3 --max-time 30 https://cloud.hexa38.com/status.php &gt; /dev/null 2&gt;&amp;1 &amp;&amp; curl -fsS --max-time 10 https://hc-ping.com/TU_UUID &gt; /dev/null 2&gt;&amp;1&quot;) | sudo crontab -
+</code></pre>
+<p><strong>Verificar:</strong></p>
+<pre><code class="language-bash">sudo crontab -l
+</code></pre>
+<p>Debe mostrar <strong>2 líneas</strong> (backup + monitoreo).</p>
+<h4>Cómo funciona la lógica</h4>
+<pre><code>Cada 5 minutos cron:
+  curl https://cloud.hexa38.com/status.php
+       │
+       ├── responde OK ──► curl https://hc-ping.com/UUID  (silencioso)
+       │
+       └── falla ───────► NO hace ping a healthchecks.io
+
+Healthchecks.io espera cada 10 min un ping.
+Si pasan 15 min (10 + 5 grace) sin ping → ALERTA POR EMAIL
+</code></pre>
+<h4>Configurar canales de notificación</h4>
+<p>En healthchecks.io → <strong>Integrations</strong> → activa los que prefieras:</p>
+<ul>
+<li>📧 Email (default, gratis)</li>
+<li>📱 Telegram (recomendado, instantáneo y gratis)</li>
+<li>💬 Discord / Slack (gratis)</li>
+<li>🔗 Webhook (gratis, cualquier URL)</li>
+<li>💰 WhatsApp / SMS / llamada (REQUIERE plan de pago Hobbyist ~$5/mes — redundante si ya tienes Telegram)</li>
+</ul>
+<h4>Setup específico de Telegram (gratis, recomendado)</h4>
+<p>Healthchecks.io tiene un bot oficial llamado <code>@HealthchecksBot</code>. Setup en 3 minutos:</p>
+<ol>
+<li><strong>En healthchecks.io</strong>: tu check → Integrations → busca <strong>Telegram</strong> → click <strong>Add Integration</strong></li>
+<li><strong>En Telegram</strong>: busca <code>@HealthchecksBot</code> → envía <code>/start</code></li>
+<li>El bot te responde con un <strong>link de confirmación</strong> tipo:<pre><code>https://healthchecks.io/integrations/add_telegram/?eyJpZCI6...
+</code></pre>
+</li>
+<li><strong>Click en el link</strong> → te abre healthchecks.io</li>
+<li>Selecciona el proyecto → click <strong>Connect Telegram</strong></li>
+<li><strong>Activa el toggle de Telegram</strong> en tu check</li>
+</ol>
+<h4>Probar la notificación</h4>
+<p>En healthchecks.io → tu check → botón <strong>&quot;Send a Test Notification&quot;</strong>.
+Debes recibir un mensaje en Telegram instantáneamente.</p>
+<h4>Por qué NO WhatsApp</h4>
+<p>Aunque healthchecks.io ofrece WhatsApp, lo desestimamos porque:</p>
+<ul>
+<li>Requiere plan pago Hobbyist (~$5/mes = ~$60/año)</li>
+<li>Cada mensaje vía Twilio cuesta dinero ($0.005-0.05 USD)</li>
+<li>Telegram da el <strong>mismo efecto instantáneo gratis</strong></li>
+<li>Mantener costos bajos es uno de los objetivos del proyecto</li>
+</ul>
+<h3>13.4 Capa 3 — Cloudflare Tunnel Health Alerts</h3>
+<p>Cloudflare detecta caídas del tunnel <strong>antes</strong> que healthchecks.io (1-2 min vs 10-15 min). Setup:</p>
+<p><strong>1. Ir a <a href="https://one.dash.cloudflare.com/">https://one.dash.cloudflare.com/</a></strong></p>
+<p><strong>2. Notifications</strong> (en el dashboard general, no en el tunnel)</p>
+<p><strong>3. Add → buscar &quot;Túnel&quot;</strong> → seleccionar <strong>&quot;Alerta de estado del túnel&quot;</strong></p>
+<p><strong>4. Configurar:</strong></p>
+<ul>
+<li>Name: <code>Hexa38 Tunnel Down</code></li>
+<li>Tunnels: seleccionar tu tunnel (en este proyecto: <code>servidor-cas</code>)</li>
+<li>Activador: <strong>&quot;O se degrada o se reduce&quot;</strong> (cubre degradación parcial y caída total)</li>
+<li>Email: tu correo</li>
+</ul>
+<p><strong>5. Crear</strong> y confirmar el email de suscripción</p>
+<p><strong>6. Test</strong> (opcional):</p>
+<pre><code class="language-bash">docker stop nextcloud-tunnel
+# Esperar 1-2 minutos → debe llegar email &quot;El túnel ahora está en estado caído&quot;
+docker start nextcloud-tunnel
+</code></pre>
+<h3>13.5 Tabla de cobertura de monitoreo</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Detector</th>
+<th>Canal</th>
+<th>Tiempo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apache/PHP se cuelga</td>
+<td>Docker healthcheck → restart</td>
+<td>(silencioso)</td>
+<td>Inmediato</td>
+</tr>
+<tr>
+<td>MariaDB no responde</td>
+<td>Docker healthcheck → restart</td>
+<td>(silencioso)</td>
+<td>Inmediato</td>
+</tr>
+<tr>
+<td>Redis cae</td>
+<td>Docker healthcheck → restart</td>
+<td>(silencioso)</td>
+<td>Inmediato</td>
+</tr>
+<tr>
+<td>notify_push muere</td>
+<td>Docker healthcheck → restart</td>
+<td>(silencioso)</td>
+<td>Inmediato</td>
+</tr>
+<tr>
+<td>Nextcloud devuelve 500</td>
+<td>Healthchecks.io</td>
+<td>📱 Telegram + 📧 Email</td>
+<td>10-15 min</td>
+</tr>
+<tr>
+<td>BD inaccesible (config rota)</td>
+<td>Healthchecks.io</td>
+<td>📱 Telegram + 📧 Email</td>
+<td>10-15 min</td>
+</tr>
+<tr>
+<td>Tunnel pierde conectividad</td>
+<td>Cloudflare</td>
+<td>📧 Email</td>
+<td>1-2 min ⚡</td>
+</tr>
+<tr>
+<td>NUC apagado</td>
+<td>Cloudflare + Healthchecks.io</td>
+<td>📧 Email + 📱 Telegram</td>
+<td>1-2 min ⚡</td>
+</tr>
+<tr>
+<td>Internet en casa cae</td>
+<td>Cloudflare</td>
+<td>📧 Email</td>
+<td>1-2 min ⚡</td>
+</tr>
+<tr>
+<td>Disco lleno</td>
+<td>(manual: revisar logs)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3>13.6 Mantenimiento del sistema de monitoreo</h3>
+<p><strong>Mensual:</strong></p>
+<ul>
+<li>Revisar dashboard de healthchecks.io (debería estar siempre verde)</li>
+<li>Revisar emails de Cloudflare (cualquier alerta)</li>
+<li>Ejecutar <code>docker ps</code> y confirmar que todos están <code>(healthy)</code></li>
+</ul>
+<p><strong>Semestral:</strong></p>
+<ul>
+<li>Probar el sistema apagando el tunnel a propósito (debe llegar alerta)</li>
+<li>Verificar que la URL de healthchecks.io sigue activa</li>
+<li>Renovar canales de notificación si cambiaste de email/Telegram</li>
+</ul>
+<h3>13.7 Cuando escalar a más monitoreo</h3>
+<p>Si tu uso crece (&gt;20 usuarios, &gt;5 servicios, presupuesto pago), considera:</p>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Cuándo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Uptime Kuma</strong></td>
+<td>Si quieres dashboard self-hosted con histórico</td>
+</tr>
+<tr>
+<td><strong>Netdata</strong></td>
+<td>Si quieres métricas detalladas (CPU, RAM, disk I/O)</td>
+</tr>
+<tr>
+<td><strong>Prometheus + Grafana</strong></td>
+<td>Producción seria con SLAs</td>
+</tr>
+<tr>
+<td><strong>Sentry</strong></td>
+<td>Si necesitas tracking de errores PHP/JS</td>
+</tr>
+</tbody></table>
+<p>Para uso personal/familiar, las 3 capas actuales son <strong>más que suficientes</strong>.</p>
+<hr>
+<h2>13b. Fase 13: MCP de gestión del NUC (Claude) <a name="13b-mcp"></a></h2>
+<h3>13b.1 Qué es y por qué</h3>
+<p>Un <strong>servidor MCP (Model Context Protocol)</strong> permite que Claude (la IA) diagnostique y opere el NUC directamente desde una conversación, sin que el operador tenga que abrir SSH y ejecutar comandos manualmente. Es la evolución natural del sistema de monitoreo: el monitoreo <strong>avisa</strong> del problema; el MCP permite <strong>diagnosticarlo y resolverlo</strong> de forma asistida.</p>
+<p><strong>Flujo:</strong> el usuario escribe &quot;revisa el túnel&quot; → Claude invoca la herramienta MCP → el servidor MCP se conecta por SSH (Tailscale) al NUC, ejecuta el comando, devuelve el resultado ya analizado.</p>
+<h3>13b.2 Arquitectura</h3>
+<pre><code>┌─────────────────────┐
+│   Claude Desktop    │  (Windows del operador)
+│   (sandbox Electron)│
+└──────────┬──────────┘
+           │ stdio / JSON-RPC
+           ▼
+┌─────────────────────┐
+│  Servidor MCP       │  server.py (FastMCP, Python 3.11)
+│  nextcloud_nuc_mcp  │
+└──────────┬──────────┘
+           │ paramiko (SSH in-process)
+           │ ── NO usa ssh.exe (ver lección 13b.5) ──
+           ▼
+┌─────────────────────┐
+│  Tailscale (red mesh)│  100.91.119.52
+└──────────┬──────────┘
+           │ Auth &quot;none&quot; (identidad de red, sin clave/password)
+           ▼
+┌─────────────────────┐
+│   NUC hexa38-nuc    │  Ubuntu Server + Docker
+└─────────────────────┘
+</code></pre>
+<h3>13b.3 Herramientas expuestas</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Función</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nuc_check_health</code></td>
+<td>Diagnóstico completo (RAM, disco, contenedores, errores, backup)</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_get_containers</code></td>
+<td>Estado de los 6 contenedores con healthcheck</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_get_logs</code></td>
+<td>Logs de un contenedor (filtro por líneas o tiempo)</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_restart_service</code></td>
+<td>Reinicia un contenedor específico</td>
+<td>acción</td>
+</tr>
+<tr>
+<td><code>nuc_run_occ</code></td>
+<td>Ejecuta comandos <code>occ</code> de Nextcloud</td>
+<td>acción</td>
+</tr>
+<tr>
+<td><code>nuc_check_backup</code></td>
+<td>Estado de backups locales y Google Drive</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_check_disk</code></td>
+<td>Uso de disco + SMART de sda/sdb</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_check_tunnel</code></td>
+<td>Diagnóstico del túnel Cloudflare (estado, logs, reconexiones)</td>
+<td>read-only</td>
+</tr>
+<tr>
+<td><code>nuc_maintenance_mode</code></td>
+<td>Activa/desactiva modo mantenimiento</td>
+<td>acción</td>
+</tr>
+<tr>
+<td><code>nuc_run_command</code></td>
+<td>Comando shell arbitrario (diagnóstico avanzado)</td>
+<td>acción</td>
+</tr>
+<tr>
+<td><code>nuc_debug_connection</code></td>
+<td>Verifica la conectividad MCP → NUC</td>
+<td>read-only</td>
+</tr>
+</tbody></table>
+<p>Cada herramienta declara <code>annotations</code> (<code>readOnlyHint</code>, <code>destructiveHint</code>, etc.) para que Claude sepa cuáles son seguras y cuáles requieren confirmación.</p>
+<h3>13b.4 Estructura de archivos del MCP</h3>
+<pre><code>mcp-nextcloud/
+├── server.py          ← servidor FastMCP con las 11 herramientas
+├── requirements.txt   ← mcp[cli], paramiko, python-dotenv
+└── .env               ← NUC_HOST, NUC_USER, puerto, rutas (sin secretos: Tailscale auth none)
+</code></pre>
+<p>Registro en <code>%APPDATA%\Claude\claude_desktop_config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;nextcloud-nuc&quot;: {
+      &quot;command&quot;: &quot;C:\\...\\python.exe&quot;,
+      &quot;args&quot;: [&quot;C:\\...\\mcp-nextcloud\\server.py&quot;]
+    }
+  }
+}
+</code></pre>
+<h3>13b.5 Lección clave: por qué paramiko y no <code>ssh.exe</code></h3>
+<p><strong>Síntoma:</strong> al lanzar las herramientas desde Claude, todo fallaba con <code>exit 255</code> y <strong>stderr completamente vacío</strong>, incluso con <code>ssh -vvv</code> redirigido a un archivo. Pero <code>ssh.exe</code> funcionaba perfecto desde una terminal PowerShell normal.</p>
+<p><strong>Diagnóstico (metodología):</strong></p>
+<ol>
+<li>Test TCP al puerto 22 desde el proceso MCP → <strong>OK</strong> (la red llega)</li>
+<li>Test <code>cmd /c echo</code> como subproceso desde el MCP → <strong>OK</strong> (subprocess funciona)</li>
+<li>Test <code>ssh.exe -vvv</code> con stderr a archivo → <strong>exit 255, cero bytes</strong> (ni el banner de versión)</li>
+</ol>
+<p><strong>Causa raíz:</strong> Claude Desktop ejecuta el MCP en un <strong>sandbox de Electron</strong> que bloquea específicamente la ejecución de <code>ssh.exe</code> como proceso hijo. No es problema de red, ni de pipes, ni de credenciales: es ese binario concreto.</p>
+<p><strong>Solución:</strong> usar <strong>paramiko</strong> (cliente SSH puro en Python), que corre <strong>dentro</strong> del proceso Python y no lanza binarios externos. Como el proceso Python sí tiene acceso de red (lo probó el test TCP), paramiko conecta sin problema.</p>
+<p><strong>Detalle de Tailscale SSH:</strong> el NUC usa Tailscale SSH, que autentica por <strong>identidad de red</strong> (<code>auth_none</code> en paramiko), sin clave ni contraseña. El handshake muestra <code>Authentication (none) successful!</code>.</p>
+<pre><code class="language-python"># Núcleo del helper SSH (paramiko, auth none de Tailscale)
+sock = socket.create_connection((NUC_HOST, 22), timeout=15)
+transport = paramiko.Transport(sock)
+transport.start_client(timeout=15)
+transport.auth_none(NUC_USER)          # Tailscale SSH: identidad de red
+chan = transport.open_session()
+chan.exec_command(command)
+</code></pre>
+<p>El helper incluye <strong>reintento automático</strong> (1 retry con backoff) porque el WiFi intermitente del NUC puede causar fallos transitorios de conexión.</p>
+<h3>13b.6 Buenas prácticas aplicadas (metodología MCP)</h3>
+<ul>
+<li><strong>Lista blanca de contenedores:</strong> las herramientas sólo aceptan los 6 contenedores conocidos (evita inyección de nombres arbitrarios).</li>
+<li><strong>Validación con Pydantic:</strong> cada entrada se valida con modelos (<code>extra=&quot;forbid&quot;</code>, rangos en límites).</li>
+<li><strong>Annotations correctas:</strong> read-only vs destructivo, para que Claude pida confirmación sólo cuando toca.</li>
+<li><strong>Logging de paramiko silenciado</strong> a nivel WARNING (evita ruido en el canal stdio del MCP).</li>
+<li><strong>Sin secretos en el <code>.env</code>:</strong> Tailscale autentica por identidad; no hay claves ni passwords en texto plano.</li>
+<li><strong><code>sudo</code> sigue pidiendo contraseña:</strong> el MCP <strong>no</strong> puede ejecutar comandos privilegiados de forma autónoma (decisión de seguridad). Los cambios root los aplica el operador manualmente.</li>
+</ul>
+<hr>
+<h2>13c. Fase 14: Inestabilidad WiFi y degradación del túnel <a name="13c-wifi"></a></h2>
+<h3>13c.1 El síntoma</h3>
+<p>Cloudflare enviaba correos recurrentes de <strong>&quot;túnel degradado&quot;</strong>. Habían empezado tras una caída del servicio de internet que provocó un <strong>cambio automático en los nombres de las interfaces de red</strong>. La reconexión se había resuelto, pero las alertas continuaban.</p>
+<h3>13c.2 Diagnóstico (de lo general a lo específico)</h3>
+<p><strong>Paso 1 — Logs del túnel</strong> (<code>nuc_check_tunnel</code>): el contenedor <code>nextcloud-tunnel</code> estaba <code>running</code> con <code>Restarts: 0</code>, pero los logs mostraban tormentas de:</p>
+<pre><code>ERR failed to accept incoming stream requests error=&quot;failed to accept QUIC stream:
+    timeout: no recent network activity&quot; connIndex=0..3
+INF Retrying connection in up to 1s
+INF Registered tunnel connection ...
+</code></pre>
+<p>Las <strong>4 conexiones QUIC</strong> a Cloudflare caían <strong>simultáneamente</strong> y se reconectaban. Contador de eventos de reconexión: <strong>12 046 en ~4 días</strong>. Cuando las 4 caen a la vez, el problema no es de Cloudflare sino de la <strong>conectividad local</strong>.</p>
+<p><strong>Paso 2 — Estado de las interfaces</strong> (<code>ip -brief addr</code>):</p>
+<pre><code>enp3s0   DOWN                           ← Ethernet: SIN cable
+wlp2s0   UP    192.168.1.69/24          ← WiFi: lleva todo el tráfico
+</code></pre>
+<p>La ruta por defecto salía por <strong>WiFi</strong> (<code>default via 192.168.1.1 dev wlp2s0</code>). El Ethernet quedó caído tras el incidente.</p>
+<p><strong>Paso 3 — Logs de red del sistema</strong> (<code>journalctl</code>): el momento exacto de la degradación coincidía con el WiFi:</p>
+<pre><code>22:22:59 wlp2s0: Lost carrier        ← WiFi pierde señal
+22:23:04 (túnel) las 4 conexiones QUIC caen   ← 5 s después
+22:23:10 wlp2s0: Gained carrier      ← WiFi vuelve
+</code></pre>
+<p>Tormenta de <code>Lost carrier</code> / <code>Gained carrier</code> / <code>DHCP lease lost</code> repetidos.</p>
+<p><strong>Paso 4 — Descartar señal débil</strong> (<code>/proc/net/wireless</code>, <code>lspci</code>): la señal era <strong>fuerte</strong> (-49 dBm, calidad 61/70). El chip: <strong>Intel Wireless 3160, driver <code>iwlwifi</code></strong>. Señal buena + cortes de carrier = no es problema físico, es el <strong>bug de gestión de energía del driver <code>iwlwifi</code></strong>.</p>
+<h3>13c.3 Causa raíz</h3>
+<p>El driver <code>iwlwifi</code> del Intel 3160 aplica un <strong>ahorro de energía agresivo</strong> que apaga momentáneamente la radio aunque la señal sea excelente. Cada micro-corte mata las 4 conexiones QUIC del túnel → Cloudflare lo detecta como degradado → envía la alerta. Luego el WiFi se recupera y el túnel se reconecta. <strong>Las alertas eran reales y correctas</strong>; el túnel estaba bien configurado.</p>
+<h3>13c.4 La solución aplicada</h3>
+<p>Desactivar la gestión de energía del WiFi de forma <strong>persistente</strong> (sobrevive reinicios):</p>
+<pre><code class="language-bash"># Crear configuración persistente del módulo
+sudo tee /etc/modprobe.d/iwlwifi.conf &gt; /dev/null &lt;&lt; &#39;EOF&#39;
+# Estabilidad Intel Wireless 3160 — evita cortes de carrier
+options iwlwifi power_save=0 d0i3_disable=1 uapsd_disable=1
+options iwlmvm power_scheme=1
+EOF
+
+# Instalar &#39;iw&#39; (diagnóstico de WiFi)
+sudo apt install -y iw
+
+# Aplicar (recargar módulo o reiniciar el NUC)
+sudo modprobe -r iwlmvm iwlwifi &amp;&amp; sudo modprobe iwlwifi
+
+# Verificar
+iw dev wlp2s0 get power_save        # → Power save: off
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>power_save=0</code></td>
+<td>Desactiva el ahorro de energía del WiFi (causa principal)</td>
+</tr>
+<tr>
+<td><code>d0i3_disable=1</code></td>
+<td>Desactiva un estado de bajo consumo problemático del 3160</td>
+</tr>
+<tr>
+<td><code>uapsd_disable=1</code></td>
+<td>Desactiva el ahorro automático por inactividad</td>
+</tr>
+<tr>
+<td><code>power_scheme=1</code> (iwlmvm)</td>
+<td>Modo de rendimiento &quot;activo&quot; en el firmware</td>
+</tr>
+</tbody></table>
+<p><strong>Resultado verificado:</strong> <code>Power save: off</code>, configuración persistente en su sitio.</p>
+<p>Parámetros del módulo efectivamente activos (<code>/sys/module/iwlwifi/parameters/</code>), verificados vía MCP:</p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor activo</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>power_save</code></td>
+<td><code>N</code> (off)</td>
+<td>✅ aplicado</td>
+</tr>
+<tr>
+<td><code>uapsd_disable</code></td>
+<td><code>1</code></td>
+<td>✅ aplicado</td>
+</tr>
+<tr>
+<td><code>iwlmvm power_scheme</code></td>
+<td><code>1</code></td>
+<td>✅ aplicado</td>
+</tr>
+<tr>
+<td><code>d0i3_disable</code></td>
+<td>(vacío)</td>
+<td>⚪ no soportado en esta versión del driver — inofensivo</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>El reload del módulo (<code>modprobe -r/modprobe</code>) aplicó los parámetros sin necesidad de reiniciar (uptime se mantuvo en 4 días al verificar).</p>
+</blockquote>
+<h3>13c.4-bis Evidencia de mejora — antes/después (verificado con MCP)</h3>
+<p>Todas las cifras provienen del journal del kernel del NUC, consultadas con la herramienta <code>nuc_run_command</code> del MCP (<code>journalctl ... | grep -ciE &#39;Lost carrier|Gained carrier&#39;</code>). El <strong>fix se aplicó el 2026-06-01 05:40 UTC</strong> (marca de tiempo de <code>/etc/modprobe.d/iwlwifi.conf</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>ANTES (sin fix)</th>
+<th>DESPUÉS (con fix)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ventana de referencia</td>
+<td>2026-05-30 22:00–23:00</td>
+<td>2026-06-01 07:00 → 06-02 00:30 (~17.5 h limpias)</td>
+</tr>
+<tr>
+<td><strong>Eventos de carrier WiFi/hora (promedio)</strong></td>
+<td><strong>52 / hora</strong> (tormenta)</td>
+<td><strong>~0.7 / hora</strong></td>
+</tr>
+<tr>
+<td>Horas con CERO eventos</td>
+<td>0 de 1</td>
+<td><strong>16 de 17</strong></td>
+</tr>
+<tr>
+<td><strong>Desconexiones del túnel (&quot;no recent network activity&quot;)</strong></td>
+<td>continuas (cada pocos min)</td>
+<td><strong>0 en 18.5 h</strong></td>
+</tr>
+<tr>
+<td>Patrón en logs del túnel</td>
+<td>caídas de las 4 conexiones QUIC cada pocos minutos</td>
+<td>sin caídas; un parpadeo WiFi aislado que el túnel resistió</td>
+</tr>
+</tbody></table>
+<p><strong>Reducción de inestabilidad: ~98.7 %</strong> (52 → 0.7 eventos/hora). Y, lo más relevante para el síntoma original: <strong>el túnel dejó de caerse</strong> — cero alertas de degradación atribuibles a la red durante la ventana medida.</p>
+<p><strong>Metodología de medición (reproducible):</strong></p>
+<pre><code class="language-bash"># ANTES (ventana de tormenta conocida)
+journalctl --since &#39;2026-05-30 22:00&#39; --until &#39;2026-05-30 23:00&#39; \
+  | grep -ciE &#39;Lost carrier|Gained carrier&#39;         # → 52
+
+# DESPUÉS (ventana post-fix, ajustar fechas)
+journalctl --since &#39;2026-06-01 06:00&#39; \
+  | grep -ciE &#39;Lost carrier|Gained carrier&#39;
+</code></pre>
+<blockquote>
+<p><strong>Nota de rigor:</strong> la primera hora post-fix está &quot;contaminada&quot; por el propio reload del módulo (que rebota la interfaz y genera eventos de carrier artificiales). La medición limpia se toma a partir de las 06:00 UTC y se promedia sobre 24 h. El journal del NUC retiene ~1.8 GB / varios días, suficiente para reconstruir el desglose por hora.</p>
+</blockquote>
+<h3>13c.5-bis Resultado del monitoreo (desglose horario verificado)</h3>
+<p>Datos recolectados automáticamente en el NUC por un script horario (<code>/home/aldo/wifi_monitor.sh</code> + cron de usuario), que registró por hora los eventos de carrier WiFi, DHCP lease lost y timeouts del túnel. Extracto del CSV resultante (<code>wifi_monitor.csv</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Hora (UTC)</th>
+<th>Carrier</th>
+<th>DHCP lost</th>
+<th>Tunnel timeouts</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>06:00</td>
+<td>5</td>
+<td>2</td>
+<td>0</td>
+<td>⚠️ incluye el reload del módulo (05:40)</td>
+</tr>
+<tr>
+<td>07:00</td>
+<td>5</td>
+<td>2</td>
+<td>0</td>
+<td>settling post-reload</td>
+</tr>
+<tr>
+<td>08:00 – 20:00</td>
+<td><strong>0</strong></td>
+<td>0</td>
+<td>0</td>
+<td>13 horas consecutivas estables</td>
+</tr>
+<tr>
+<td>21:00</td>
+<td>12</td>
+<td>10</td>
+<td>0</td>
+<td>parpadeo WiFi aislado — <strong>el túnel no cayó</strong></td>
+</tr>
+<tr>
+<td>22:00 – 00:00</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>estable de nuevo</td>
+</tr>
+</tbody></table>
+<p><strong>Lectura de los datos:</strong></p>
+<ul>
+<li>Descartando las 2 primeras horas (contaminadas por el reload del módulo), la ventana limpia de ~17.5 h tuvo <strong>16 de 17 horas en CERO eventos</strong>.</li>
+<li>El único episodio (hora 21:00, 12 eventos + 10 DHCP perdidos) fue un parpadeo real del WiFi — probablemente del lado del AP/interferencia, no del power management. <strong>Aun así, <code>tunnel_timeouts=0</code></strong>: el túnel resistió sin desconectarse.</li>
+<li><strong><code>tunnel_timeouts = 0</code> en las 19 horas medidas.</strong> Este es el resultado clave: la causa de las alertas de Cloudflare desapareció.</li>
+</ul>
+<p><strong>Veredicto:</strong> el fix de <code>iwlwifi</code> resolvió el problema de raíz. La inestabilidad cayó ~98.7 % y el túnel dejó de degradarse. El parpadeo residual ocasional ya no afecta al servicio. <strong>No es necesario el cable Ethernet por ahora</strong> (queda como mejora opcional para robustez extra).</p>
+<h3>13c.5 Plan según evolución</h3>
+<ol>
+<li><strong>Inmediato (aplicado ✅):</strong> desactivar power management del WiFi → resolvió el problema (ver 13c.5-bis).</li>
+<li><strong>Opcional (robustez extra):</strong> conectar <strong>cable Ethernet</strong> (<code>enp3s0</code>) — eliminaría incluso los parpadeos residuales del WiFi. No urgente tras el fix.</li>
+<li><strong>Verificación post-fix (hecha ✅):</strong> monitoreo horario de 24 h confirmó ~98.7 % menos inestabilidad y cero desconexiones del túnel.</li>
+</ol>
+<h3>13c.6 Lección de metodología</h3>
+<blockquote>
+<p><strong>Una alerta de monitoreo correcta puede tener una causa raíz a varias capas de distancia.</strong> La alerta era de Cloudflare (capa de aplicación/túnel), pero la causa estaba en el driver WiFi del kernel (capa física). El método &quot;de lo general a lo específico&quot; — túnel → interfaces → logs del kernel → driver — fue lo que conectó ambos extremos. Correlacionar <strong>timestamps</strong> entre logs de distintos servicios fue la pieza decisiva.</p>
+<p><strong>Sobre la verificación:</strong> no basta con aplicar el fix; hay que <strong>medir</strong> que funcionó. Un monitor horario simple (cron + <code>journalctl</code> + CSV) durante 24 h dio la evidencia cuantitativa del antes/después (52 → 0.7 eventos/hora), separando el ruido del reload de la señal real. Medir es lo que convierte &quot;creo que lo arreglé&quot; en &quot;está resuelto, aquí están los números&quot;.</p>
+</blockquote>
+<h3>13c.7 Evolución (parte 2): cambio de punto de acceso</h3>
+<p>Tras el fix de <code>iwlwifi</code>, los micro-cortes del driver desaparecieron, pero <strong>quedaban desconexiones residuales</strong> más espaciadas. Una de ellas se presenció <strong>en vivo</strong>: el NUC quedó inalcanzable ~3-4 minutos. Los logs revelaron la naturaleza real del corte:</p>
+<pre><code>LinkChange: major ... ips-changed       ← perdió la IP
+DHCPv4 address 192.168.1.69 acquired     ← se reasoció y reconectó
+</code></pre>
+<p>Eso no es un micro-corte de power management: es una <strong>desasociación del punto de acceso</strong> (el AP suelta al cliente y este se reconecta).</p>
+<p><strong>Causa más profunda:</strong> el NUC se conectaba al AP <strong>MOVISTAR_9DA1 (2ª planta)</strong> con señal <strong>fuerte (-48 dBm)</strong> pero ese AP <strong>expulsa clientes</strong> intermitentemente. En la misma casa existe el AP <strong>principal &quot;Santiago&quot; (1ª planta)</strong>, estable, aunque más lejos.</p>
+<p><strong>Decisión basada en datos</strong> (<code>sudo iw dev wlp2s0 scan</code>):</p>
+<table>
+<thead>
+<tr>
+<th>SSID</th>
+<th>Señal (escaneo)</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MOVISTAR_9DA1</td>
+<td>-48 dBm</td>
+<td>fuerte pero inestable (suelta)</td>
+</tr>
+<tr>
+<td>Santiago</td>
+<td>-73 dBm</td>
+<td>estable; al asociarse subió a <strong>-64/-66 dBm</strong></td>
+</tr>
+</tbody></table>
+<p>Para un servidor 24/7, <strong>la estabilidad pesa más que la señal</strong>: mejor un AP a -65 dBm que aguanta, que uno a -48 que desconecta.</p>
+<p><strong>Cambio de red — método seguro remoto (sin riesgo de quedar bloqueado):</strong></p>
+<pre><code class="language-bash"># Respaldo del netplan
+sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
+
+# Red de seguridad: auto-reversión en 4 min si algo falla (sobrevive caída de SSH)
+sudo systemd-run --on-active=240 --unit=wifi-revert \
+  bash -c &#39;cp /etc/netplan/50-cloud-init.yaml.bak /etc/netplan/50-cloud-init.yaml &amp;&amp; netplan apply&#39;
+
+# Nueva config (OJO: SSID es case-sensitive → &quot;Santiago&quot; con mayúscula)
+sudo tee /etc/netplan/50-cloud-init.yaml &gt; /dev/null &lt;&lt; &#39;EOF&#39;
+network:
+  version: 2
+  wifis:
+    wlp2s0:
+      dhcp4: true
+      access-points:
+        &quot;Santiago&quot;:
+          auth:
+            key-management: &quot;psk&quot;
+            password: &quot;********&quot;
+EOF
+
+sudo netplan apply
+iw dev wlp2s0 link        # verificar SSID: Santiago
+# Si funciona: cancelar la reversión. Si no: en 4 min vuelve solo a la red anterior.
+sudo systemctl stop wifi-revert.timer
+</code></pre>
+<blockquote>
+<p>Alternativa equivalente: <code>sudo netplan try</code> (aplica y revierte solo en 120 s si no confirmas). Útil cuando cambias la red por la que estás conectado.</p>
+</blockquote>
+<p><strong>Evidencia comparativa (24 h en &quot;Santiago&quot;, verificada con MCP):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Eventos carrier/hora</th>
+<th>Caídas del túnel</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MOVISTAR (tormenta)</td>
+<td>52 / h</td>
+<td>continuas</td>
+</tr>
+<tr>
+<td>MOVISTAR + fix iwlwifi</td>
+<td>~0, pero 1 desconexión real de 3-4 min</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Santiago (cambio de AP)</strong></td>
+<td><strong>0.45 / h (20 de 22 h en cero)</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody></table>
+<p>Señal estable -61 a -69 dBm durante todo el periodo. <strong>El cambio de AP cerró el caso:</strong> el túnel dejó de degradarse por completo.</p>
+<p><strong>Lección:</strong> a veces el fix de software (driver) mitiga, pero la causa última es <strong>física/topológica</strong> (el AP equivocado). Cuando hay varios puntos de acceso, conviene elegir el <strong>estable</strong> aunque tenga algo menos de señal — y hacer el cambio con <strong>auto-reversión</strong> para no perder el acceso remoto.</p>
+<hr>
+<h2>13d. Fase 15: Actualización de Nextcloud y fijado de imagen <a name="13d-update"></a></h2>
+<h3>13d.1 Contexto</h3>
+<p>El panel de administración avisó de una actualización disponible. Al ser una instalación <strong>Docker</strong>, no se usa el actualizador web (está deshabilitado a propósito): se actualiza cambiando la imagen del contenedor. Versión de partida: <strong>33.0.2</strong>.</p>
+<h3>13d.2 Buena práctica: fijar la imagen (evitar <code>latest</code>)</h3>
+<p>El <code>docker-compose.yml</code> usaba <code>image: nextcloud:latest</code>. Eso es riesgoso: un <code>docker compose pull</code> podría traer un día una <strong>versión MAYOR</strong> (34, 35…) sin avisar, y Nextcloud <strong>no permite saltar versiones mayores</strong> (hay que ir una a una). Solución: fijar a la rama actual.</p>
+<pre><code class="language-yaml">image: nextcloud:latest   →   image: nextcloud:33-apache
+</code></pre>
+<p>Así se reciben parches/menores de la rama 33 automáticamente, pero <strong>nunca un salto mayor</strong> sin decisión explícita. Las 3 imágenes (app, cron, notify_push) deben quedar <strong>iguales</strong>.</p>
+<h3>13d.3 Procedimiento (cero-pérdida, verificado)</h3>
+<pre><code class="language-bash"># 1. BACKUP completo primero (siempre)
+sudo bash /home/aldo/nextcloud/backup.sh
+
+cd /home/aldo/nextcloud
+cp docker-compose.yml docker-compose.yml.bak-$(date +%Y%m%d_%H%M)
+
+# 2. Fijar imagen (3 líneas) y validar
+sed -i &#39;s|image: nextcloud:latest|image: nextcloud:33-apache|g&#39; docker-compose.yml
+docker compose config &gt;/dev/null &amp;&amp; echo &quot;YAML OK&quot;
+
+# 3. Descargar la imagen nueva (sin downtime; los contenedores siguen en la vieja)
+docker compose pull app cron notify_push
+
+# 4. Recrear app → su entrypoint corre &#39;occ upgrade&#39; automáticamente
+docker compose up -d app
+docker logs -f nextcloud-app          # ver el upgrade; sale de mantenimiento al terminar
+
+# 5. Recrear el resto y reparar índices
+docker compose up -d cron notify_push
+docker exec -u www-data nextcloud-app php occ db:add-missing-indices
+
+# 6. Verificar (interno y público)
+docker exec -u www-data nextcloud-app php occ status
+curl -s https://cloud.hexa38.com/status.php
+</code></pre>
+<h3>13d.4 Qué hace el entrypoint al recrear <code>app</code></h3>
+<p>El código de Nextcloud vive en el volumen del host (<code>/mnt/nextcloud/html</code>). Al arrancar la imagen nueva, el entrypoint detecta la diferencia de versión, <strong>copia los archivos nuevos al volumen</strong>, activa modo mantenimiento, <strong>actualiza el esquema de BD y las apps</strong> (las incompatibles se desactivan y se re-actualizan desde el App Store), corre la verificación de integridad y <strong>sale de mantenimiento</strong>.</p>
+<h3>13d.5 Resultado y notas</h3>
+<ul>
+<li>Actualizado <strong>33.0.2 → 33.0.4</strong>, todos los contenedores <code>healthy</code>, acceso público OK, PHP 8.4.21. ~4 min de migración.</li>
+<li><strong>El tag Docker va unos días detrás del canal web:</strong> el panel ofrecía 33.0.5, pero <code>33-apache</code> daba 33.0.4. Cuando Docker publique 33.0.5 en ese tag, un futuro <code>docker compose pull app cron notify_push &amp;&amp; docker compose up -d</code> lo traerá — <strong>sin tocar el compose</strong> (el pinning ya hace su trabajo).</li>
+<li>La imagen vieja queda huérfana; se libera espacio con <code>docker image rm nextcloud:latest</code>.</li>
+</ul>
+<hr>
+<h1>Parte 4 — Operación del Sistema</h1>
+<h2>14. Diagnóstico del sistema <a name="14-diagnóstico"></a></h2>
+<h3>14.1 Filosofía</h3>
+<ol>
+<li><strong>Observar antes de actuar</strong></li>
+<li><strong>De lo general a lo específico</strong></li>
+<li><strong>Logs en orden cronológico</strong></li>
+<li><strong>Una variable a la vez</strong></li>
+<li><strong>Documentar todo</strong></li>
+</ol>
+<h3>14.2 Kit básico (siempre empezar aquí)</h3>
+<pre><code class="language-bash"># ¿Está vivo?
+uptime; docker ps; df -h; free -h
+
+# ¿Hay servicios caídos?
+systemctl --failed
+
+# ¿Hay errores recientes?
+sudo journalctl --since &quot;1 hour ago&quot; -p err --no-pager | head -30
+
+# ¿Cómo están los recursos?
+top -b -n1 | head -20
+</code></pre>
+<h3>14.3 Atributos SMART críticos</h3>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>✅ Bueno</th>
+<th>⚠️ Atención</th>
+<th>🚨 Malo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reallocated_Sector_Ct</td>
+<td>0</td>
+<td>1-50</td>
+<td>&gt;50 o creciendo</td>
+</tr>
+<tr>
+<td>Current_Pending_Sector</td>
+<td>0</td>
+<td>1-5</td>
+<td>&gt;5</td>
+</tr>
+<tr>
+<td>Offline_Uncorrectable</td>
+<td>0</td>
+<td>1-5</td>
+<td>&gt;5</td>
+</tr>
+<tr>
+<td>UDMA_CRC_Error_Count</td>
+<td>0</td>
+<td>1-10</td>
+<td>&gt;10</td>
+</tr>
+<tr>
+<td>Power_On_Hours (HDD)</td>
+<td>&lt;40K</td>
+<td>40-60K</td>
+<td>&gt;60K</td>
+</tr>
+<tr>
+<td>Temperature</td>
+<td>&lt;45°C</td>
+<td>45-55°C</td>
+<td>&gt;55°C</td>
+</tr>
+</tbody></table>
+<h3>14.4 Niveles de log (journalctl)</h3>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Nombre</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>emerg</td>
+<td>Sistema inutilizable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>alert</td>
+<td>Acción inmediata</td>
+</tr>
+<tr>
+<td>2</td>
+<td>crit</td>
+<td>Crítico</td>
+</tr>
+<tr>
+<td>3</td>
+<td>err</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>4</td>
+<td>warning</td>
+<td>Advertencia</td>
+</tr>
+<tr>
+<td>5</td>
+<td>notice</td>
+<td>Notable</td>
+</tr>
+<tr>
+<td>6</td>
+<td>info</td>
+<td>Informativo</td>
+</tr>
+<tr>
+<td>7</td>
+<td>debug</td>
+<td>Depuración</td>
+</tr>
+</tbody></table>
+<h3>14.5 Script de diagnóstico todo-en-uno</h3>
+<pre><code class="language-bash">#!/bin/bash
+# /home/aldo/diagnostico.sh
+echo &quot;====================&quot;
+echo &quot;DIAGNOSTICO $(date)&quot;
+echo &quot;====================&quot;
+
+echo &quot;=== UPTIME ===&quot;
+uptime
+
+echo &quot;=== MEMORIA ===&quot;
+free -h
+sudo dmesg | grep -i &quot;killed process&quot; | tail -5
+
+echo &quot;=== DISCOS ===&quot;
+df -h
+lsblk -f
+mount | grep -v &quot;tmpfs\|cgroup\|proc\|sysfs&quot;
+
+echo &quot;=== SMART ===&quot;
+for disk in /dev/sda /dev/sdb; do
+    [ -e &quot;$disk&quot; ] &amp;&amp; {
+        echo &quot;--- $disk ---&quot;
+        sudo smartctl -H $disk 2&gt;&amp;1 | grep -E &quot;PASSED|FAILED&quot;
+        sudo smartctl -A $disk 2&gt;&amp;1 | grep -E &quot;Reallocated_Sector_Ct|Current_Pending_Sector|Offline_Uncorrectable|UDMA_CRC|Temperature&quot;
+    }
+done
+
+echo &quot;=== TEMPERATURA ===&quot;
+sudo sensors 2&gt;/dev/null | grep -E &quot;Core|temp&quot;
+
+echo &quot;=== DOCKER ===&quot;
+docker ps --format &quot;table {{.Names}}\t{{.Status}}\t{{.Image}}&quot;
+docker system df
+
+echo &quot;=== NEXTCLOUD ===&quot;
+docker exec -u www-data nextcloud-app php occ status 2&gt;/dev/null
+docker exec -u www-data nextcloud-app php occ user:list 2&gt;/dev/null
+
+echo &quot;=== BACKUPS ===&quot;
+ls -lt /mnt/nextcloud/backups/ | head -10
+grep &quot;BACKUP COMPLETADO&quot; /mnt/nextcloud/backups/backup.log | tail -3
+
+echo &quot;=== ERRORES 24H ===&quot;
+sudo journalctl --since &quot;1 day ago&quot; -p err --no-pager | head -30
+
+echo &quot;=== SERVICIOS FALLIDOS ===&quot;
+systemctl --failed --no-legend
+
+echo &quot;====================&quot;
+</code></pre>
+<p>Uso: <code>sudo bash /home/aldo/diagnostico.sh &gt; ~/diag_$(date +%Y%m%d).txt</code></p>
+<hr>
+<h2>15. Recuperación ante desastres <a name="15-recuperación"></a></h2>
+<h3>15.1 Escenarios y soluciones</h3>
+<h4>Escenario A: Solo se perdieron archivos de un usuario</h4>
+<pre><code class="language-bash">USUARIO=Kevin
+BACKUP=/mnt/nextcloud/backups/2026-XX-XX_03-00
+
+docker exec -u www-data nextcloud-app php occ maintenance:mode --on
+sudo rm -rf &quot;/mnt/nextcloud/data/$USUARIO&quot;
+sudo cp -a &quot;$BACKUP/userdata/$USUARIO&quot; /mnt/nextcloud/data/
+sudo chown -R www-data:www-data &quot;/mnt/nextcloud/data/$USUARIO&quot;
+docker exec -u www-data nextcloud-app php occ maintenance:mode --off
+docker exec -u www-data nextcloud-app php occ files:scan &quot;$USUARIO&quot;
+</code></pre>
+<h4>Escenario B: Solo se corrompió la BD</h4>
+<pre><code class="language-bash">BACKUP=/mnt/nextcloud/backups/2026-XX-XX_03-00
+set -a; source /home/aldo/nextcloud/.env; set +a
+
+docker exec -u www-data nextcloud-app php occ maintenance:mode --on
+
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; -e \
+  &quot;DROP DATABASE IF EXISTS nextcloud; CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;&quot;
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud &lt; $BACKUP/database.sql
+
+docker exec -u www-data nextcloud-app php occ maintenance:mode --off
+docker exec -u www-data nextcloud-app php occ files:scan --all
+</code></pre>
+<h4>Escenario C: Disco SDB falla físicamente</h4>
+<ol>
+<li>Verificar: <code>sudo dmesg | grep -i &quot;sdb\|i/o error&quot;</code></li>
+<li>SMART: <code>sudo smartctl -a /dev/sdb</code></li>
+<li>Si falla → comprar disco nuevo, formatear ext4, montar</li>
+<li>Restaurar desde backup off-site (Google Drive):<pre><code class="language-bash">rclone copy gdrive:nextcloud-backups/nextcloud_backup_2026-XX-XX_03-00.tar.gz /tmp/
+tar xzf /tmp/nextcloud_backup_*.tar.gz -C /mnt/nextcloud/backups/
+# Luego seguir procedimiento de restauración
+</code></pre>
+</li>
+</ol>
+<h4>Escenario D: Olvidaste contraseña admin</h4>
+<pre><code class="language-bash">docker exec -it -u www-data nextcloud-app php occ user:resetpassword Aldz
+</code></pre>
+<h4>Escenario E: Cloudflare Tunnel no responde</h4>
+<pre><code class="language-bash">docker logs nextcloud-tunnel --tail 50
+docker compose restart tunnel
+</code></pre>
+<h4>Escenario F: Tailscale no conecta</h4>
+<pre><code class="language-bash">sudo tailscale logout
+sudo tailscale up
+</code></pre>
+<h4>Escenario G: NUC no arranca</h4>
+<ol>
+<li>Entrar a BIOS (F2)</li>
+<li>Verificar que el disco aparece</li>
+<li>Verificar Boot Order</li>
+<li>Si no arranca → USB live de Ubuntu, reparar GRUB</li>
+</ol>
+<h4>Escenario H: Sistema apagado fortuitamente</h4>
+<pre><code class="language-bash"># Verificar si el disco montó
+mount | grep nextcloud
+
+# Si se ve raro, journal replay
+cd /home/aldo/nextcloud &amp;&amp; docker compose stop
+sudo umount /mnt/nextcloud
+sudo mount /mnt/nextcloud
+docker compose start
+
+# Programar fsck para próximo reinicio
+sudo touch /forcefsck
+</code></pre>
+<h3>15.2 Checklist de emergencia</h3>
+<pre><code>[ ] 1. NO entrar en pánico — hay 7 días local + 14 remoto
+[ ] 2. NO ejecutar nada destructivo
+[ ] 3. docker ps &amp;&amp; df -h &amp;&amp; mount | grep nextcloud
+[ ] 4. ls /mnt/nextcloud/backups/
+[ ] 5. Si hay backups → restauración (Sección 14)
+[ ] 6. Si no aparecen → umount/remount de /mnt/nextcloud
+[ ] 7. Si nada → consultar logs sin tocar más
+</code></pre>
+<hr>
+<h2>16. Mantenimiento periódico <a name="16-mantenimiento"></a></h2>
+<h3>📅 Diario (automático)</h3>
+<ul>
+<li>✅ Backup local 3 AM</li>
+<li>✅ Backup remoto Google Drive</li>
+</ul>
+<h3>📅 Semanal (manual, 5 min)</h3>
+<pre><code class="language-bash">docker ps &amp;&amp; df -h &amp;&amp; free -h
+sudo journalctl --since &quot;7 days ago&quot; -p err --no-pager | head -30
+docker exec nextcloud-app tail -50 /var/www/html/data/nextcloud.log
+ls -lt /mnt/nextcloud/backups/ | head -5
+rclone ls gdrive:nextcloud-backups/ | tail -7
+
+# Verificar que todos los healthchecks están OK
+docker ps --format &quot;table {{.Names}}\t{{.Status}}&quot;
+# (todos deben mostrar &quot;healthy&quot;, excepto cron y tunnel)
+
+# Verificar dashboard de healthchecks.io
+# → https://healthchecks.io (debe estar verde)
+</code></pre>
+<h3>📅 Mensual (15 min)</h3>
+<pre><code class="language-bash"># Backup manual antes
+sudo bash /home/aldo/nextcloud/backup.sh
+
+# Mantenimiento de BD
+docker exec -u www-data nextcloud-app php occ maintenance:repair
+docker exec -u www-data nextcloud-app php occ db:add-missing-indices
+docker exec -u www-data nextcloud-app php occ db:add-missing-columns
+docker exec -u www-data nextcloud-app php occ db:add-missing-primary-keys
+
+# Limpieza
+docker exec -u www-data nextcloud-app php occ files:cleanup
+docker image prune -f
+docker system df
+
+# Updates Ubuntu
+sudo apt update &amp;&amp; sudo apt upgrade -y
+</code></pre>
+<h3>📅 Trimestral (1 hora)</h3>
+<pre><code class="language-bash"># Test SMART completo
+sudo smartctl -t long /dev/sda
+sudo smartctl -t long /dev/sdb
+
+# Test de restauración (CLAVE)
+# Bajar un backup y restaurarlo en VM/segundo NUC
+
+# Diagnóstico completo
+sudo bash /home/aldo/diagnostico.sh &gt; ~/diag_$(date +%Y%m%d).txt
+
+# Test del sistema de monitoreo end-to-end
+docker stop nextcloud-tunnel
+# Esperar 2-3 min → debe llegar email de Cloudflare
+docker start nextcloud-tunnel
+</code></pre>
+<hr>
+<h2>17. Troubleshooting de errores comunes <a name="17-troubleshooting"></a></h2>
+<h3>&quot;Sistema en modo de mantenimiento&quot;</h3>
+<pre><code class="language-bash">docker exec -u www-data nextcloud-app php occ maintenance:mode --off
+</code></pre>
+<h3>&quot;Cannot write into config directory&quot;</h3>
+<pre><code class="language-bash">sudo chown -R www-data:www-data /mnt/nextcloud/html/config
+</code></pre>
+<h3>&quot;Internal Server Error&quot; después de update</h3>
+<pre><code class="language-bash">docker exec -u www-data nextcloud-app php occ upgrade
+docker exec -u www-data nextcloud-app php occ maintenance:repair
+</code></pre>
+<h3>&quot;Trusted domain error&quot;</h3>
+<pre><code class="language-bash">docker exec -u www-data nextcloud-app php occ config:system:set trusted_domains 2 --value=&quot;otro.dominio.com&quot;
+</code></pre>
+<h3>Sync desktop muy lento → notify_push no funciona</h3>
+<pre><code class="language-bash">docker logs nextcloud-push --tail 30
+docker exec -u www-data nextcloud-app php occ notify_push:metrics
+</code></pre>
+<h3>Disco lleno</h3>
+<pre><code class="language-bash">sudo du -sh /mnt/nextcloud/* | sort -h
+docker exec nextcloud-app truncate -s 0 /var/www/html/data/nextcloud.log
+docker system prune -f
+</code></pre>
+<h3>Cron de backup no ejecuta</h3>
+<pre><code class="language-bash">sudo crontab -l
+sudo grep CRON /var/log/syslog | tail -20
+sudo bash -x /home/aldo/nextcloud/backup.sh   # Para ver dónde falla
+</code></pre>
+<h3>Errores apparmor de snap.nextcloud</h3>
+<pre><code class="language-bash">sudo snap remove --purge nextcloud
+</code></pre>
+<h3>Cloudflare avisa &quot;túnel degradado&quot; de forma recurrente</h3>
+<p>Causa frecuente: el NUC está en <strong>WiFi inestable</strong> (driver <code>iwlwifi</code> con ahorro de energía). Las 4 conexiones QUIC del túnel caen a la vez al perder carrier. Ver Fase 14.</p>
+<pre><code class="language-bash"># 1. Confirmar caídas del túnel
+docker logs nextcloud-tunnel --tail 80 | grep -i &quot;no recent network activity&quot;
+
+# 2. Ver qué interfaz lleva el tráfico (¿WiFi o Ethernet?)
+ip -brief addr show
+ip route show default
+
+# 3. Correlacionar con carrier del WiFi
+journalctl --since &#39;1 day ago&#39; | grep -iE &#39;carrier|dhcp lease&#39;
+
+# 4. Fix: desactivar power management del WiFi (persistente)
+sudo tee /etc/modprobe.d/iwlwifi.conf &gt; /dev/null &lt;&lt; &#39;EOF&#39;
+options iwlwifi power_save=0 d0i3_disable=1 uapsd_disable=1
+options iwlmvm power_scheme=1
+EOF
+sudo modprobe -r iwlmvm iwlwifi &amp;&amp; sudo modprobe iwlwifi
+iw dev wlp2s0 get power_save     # → Power save: off
+# Si persiste: conectar cable Ethernet (enp3s0)
+</code></pre>
+<h3>Las herramientas del MCP fallan con exit 255 y sin salida</h3>
+<p>Causa: el sandbox de Claude Desktop bloquea <code>ssh.exe</code>. El servidor MCP debe usar <strong>paramiko</strong> (SSH in-process), no <code>ssh.exe</code>. Ver Fase 13. Verificar conexión con la herramienta <code>nuc_debug_connection</code>.</p>
+<hr>
+<h1>Parte 5 — Referencia</h1>
+<h2>18. Catálogo completo de comandos <a name="18-catálogo-comandos"></a></h2>
+<h3>18.1 Sistema operativo</h3>
+<pre><code class="language-bash"># Información
+uname -a                           # Kernel y arquitectura
+lsb_release -a                     # Versión Ubuntu
+hostnamectl                        # Hostname y SO
+uptime                             # Tiempo encendido + load
+
+# Usuarios
+who                                # Usuarios conectados
+last -F                            # Historial de logins
+last reboot                        # Historial de reboots
+
+# Procesos
+ps aux                             # Todos los procesos
+ps aux --sort=-%cpu | head -6      # Top 5 CPU
+ps aux --sort=-%mem | head -6      # Top 5 memoria
+top                                # Monitor en vivo
+htop                               # Monitor mejorado
+btop                               # Monitor moderno
+kill PID                           # Terminar proceso
+kill -9 PID                        # Forzar terminación
+</code></pre>
+<h3>18.2 Memoria</h3>
+<pre><code class="language-bash">free -h                            # RAM y swap
+vmstat 1 5                         # Estadísticas dinámicas
+sudo dmesg | grep -i &quot;killed process&quot;   # OOM kills
+sudo journalctl | grep -i &quot;out of memory&quot;
+sudo dmidecode --type memory       # RAM física
+</code></pre>
+<h3>18.3 Almacenamiento</h3>
+<pre><code class="language-bash">df -h                              # Uso por filesystem
+sudo du -sh /ruta                  # Tamaño de directorio
+sudo du -h --max-depth=1 / | sort -hr | head    # Top 10 directorios
+lsblk                              # Discos y particiones
+lsblk -f                           # Con filesystems
+mount | column -t                  # Qué está montado
+cat /etc/fstab                     # Qué se monta al boot
+sudo lsof +D /ruta                 # Procesos usando una ruta
+sudo dd if=/dev/sda of=/dev/null bs=1M count=1000 status=progress  # Test lectura
+</code></pre>
+<h3>18.4 SMART (salud de discos)</h3>
+<pre><code class="language-bash">sudo apt install -y smartmontools  # Instalar
+sudo smartctl -H /dev/sda          # Salud rápida
+sudo smartctl -A /dev/sda          # Atributos
+sudo smartctl -t short /dev/sda    # Test corto (5 min)
+sudo smartctl -t long /dev/sda     # Test largo (horas)
+sudo smartctl -l selftest /dev/sda # Resultado de tests
+</code></pre>
+<h3>18.5 Red</h3>
+<pre><code class="language-bash">ip a                               # IPs
+ip r                               # Tabla de rutas
+sudo ss -tlnp                      # Puertos TCP escuchando
+sudo ss -tunap                     # TCP+UDP con procesos
+ping -c 3 8.8.8.8                  # Conectividad
+ping -c 3 google.com               # DNS funcionando
+dig google.com                     # Resolución detallada
+nslookup cloud.hexa38.com          # Lookup
+traceroute google.com              # Ruta de paquetes
+sudo apt install speedtest-cli &amp;&amp; speedtest-cli  # Velocidad
+</code></pre>
+<h3>18.6 systemd</h3>
+<pre><code class="language-bash">systemctl status SERVICIO          # Estado
+systemctl --failed                 # Servicios fallidos
+systemctl list-units --state=active
+sudo systemctl start SERVICIO
+sudo systemctl stop SERVICIO
+sudo systemctl restart SERVICIO
+sudo systemctl reload SERVICIO
+sudo systemctl enable SERVICIO     # Iniciar al boot
+sudo systemctl disable SERVICIO
+systemctl list-timers --all        # Timers (cron de systemd)
+</code></pre>
+<h3>18.7 journalctl (logs)</h3>
+<pre><code class="language-bash">sudo journalctl -f                 # En vivo
+sudo journalctl -b 0               # Boot actual
+sudo journalctl -b -1              # Boot anterior
+sudo journalctl --list-boots       # Lista boots
+sudo journalctl -u docker          # De un servicio
+sudo journalctl -k                 # Solo kernel
+sudo journalctl -p err             # Solo errores+
+sudo journalctl --since &quot;1 hour ago&quot;
+sudo journalctl --since &quot;2026-04-25 10:00&quot; --until &quot;2026-04-25 12:00&quot;
+sudo journalctl | grep -i error
+journalctl --disk-usage            # Tamaño de logs
+sudo journalctl --vacuum-time=30d  # Limpiar más de 30 días
+</code></pre>
+<h3>18.8 Hardware</h3>
+<pre><code class="language-bash">lscpu                              # CPU
+sudo dmidecode -t bios             # BIOS
+lspci                              # PCI
+lsusb                              # USB
+lshw -short                        # Resumen general
+sudo sensors                       # Temperaturas
+upower -d                          # Energía
+</code></pre>
+<h3>18.9 Docker</h3>
+<pre><code class="language-bash"># Información
+docker info
+docker version
+docker system df                   # Espacio usado
+
+# Contenedores
+docker ps                          # Activos
+docker ps -a                       # Todos
+docker logs CONTENEDOR             # Logs
+docker logs CONTENEDOR --tail 50
+docker logs -f CONTENEDOR          # En vivo
+docker logs CONTENEDOR --since 1h
+docker exec -it CONTENEDOR bash    # Shell
+docker exec -u www-data CONTENEDOR comando
+docker inspect CONTENEDOR          # Toda la info
+docker inspect CONTENEDOR --format &#39;{{...}}&#39;
+docker stop CONTENEDOR
+docker start CONTENEDOR
+docker restart CONTENEDOR
+docker rm CONTENEDOR
+docker stats                       # Recursos en vivo
+
+# Imágenes
+docker images
+docker pull imagen:tag
+docker rmi imagen:tag
+docker image prune -f              # Limpiar huérfanas
+
+# Volúmenes
+docker volume ls
+docker volume inspect NOMBRE
+docker volume rm NOMBRE            # ⚠️ borra datos
+
+# Redes
+docker network ls
+docker network inspect backend
+
+# Limpieza
+docker system prune -f             # Contenedores parados, imágenes, redes
+docker system prune -af --volumes  # ⚠️ TODO incluyendo volúmenes
+</code></pre>
+<h3>18.10 Docker Compose</h3>
+<pre><code class="language-bash">cd /home/aldo/nextcloud
+
+docker compose ps                  # Estado
+docker compose logs                # Todos los logs
+docker compose logs -f app         # En vivo de uno
+docker compose up -d               # Levantar todo
+docker compose down                # Parar (sin -v, conserva volúmenes)
+docker compose down -v             # ⚠️ Parar Y borrar volúmenes
+docker compose restart app         # Reiniciar uno
+docker compose stop                # Parar todos
+docker compose start               # Iniciar todos parados
+docker compose pull                # Actualizar imágenes
+docker compose up -d --force-recreate SERVICIO
+docker compose config              # Validar archivo YAML
+</code></pre>
+<h3>18.11 Nextcloud (occ)</h3>
+<pre><code class="language-bash"># Sintaxis: docker exec -u www-data nextcloud-app php occ COMANDO
+
+# Estado
+occ status
+occ check
+occ integrity:check-core
+
+# Mantenimiento
+occ maintenance:mode --on
+occ maintenance:mode --off
+occ maintenance:repair
+occ maintenance:repair --include-expensive
+
+# Usuarios
+occ user:list
+occ user:list --info
+occ user:add USUARIO
+occ user:add --group admin USUARIO
+occ user:resetpassword USUARIO
+occ user:disable USUARIO
+occ user:enable USUARIO
+occ user:delete USUARIO
+occ user:lastseen USUARIO
+occ user:report                    # Estadísticas
+
+# Apps
+occ app:list
+occ app:enable APP
+occ app:disable APP
+occ app:install APP
+occ app:remove APP
+occ app:update --all
+
+# Archivos
+occ files:scan --all
+occ files:scan USUARIO
+occ files:cleanup
+occ files:transfer-ownership USR_ORIGEN USR_DESTINO
+
+# Configuración
+occ config:list
+occ config:list system
+occ config:system:get CLAVE
+occ config:system:set CLAVE --value=&quot;VALOR&quot;
+occ config:system:set forwarded_for_headers 0 --value=&quot;HTTP_X_FORWARDED_FOR&quot;
+occ config:system:set trusted_domains 2 --value=&quot;otro.dominio.com&quot;
+occ config:system:delete CLAVE
+occ config:app:get APP CLAVE
+occ config:app:set APP CLAVE --value=&quot;VALOR&quot;
+
+# Base de datos
+occ db:add-missing-indices
+occ db:add-missing-columns
+occ db:add-missing-primary-keys
+occ db:convert-filecache-bigint
+
+# Logs
+occ log:tail
+occ log:manage --level=warning
+occ log:watch
+
+# Notify Push
+occ notify_push:setup https://DOMINIO/push
+occ notify_push:metrics
+
+# Upgrade
+occ upgrade
+occ upgrade --no-app-disable
+</code></pre>
+<h3>18.12 MariaDB</h3>
+<pre><code class="language-bash"># Variables del .env
+set -a; source /home/aldo/nextcloud/.env; set +a
+
+# Acceso interactivo
+docker exec -it nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot;
+
+# Query directa
+docker exec nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud \
+  -e &quot;SELECT uid, displayname FROM oc_users;&quot;
+
+# Backup completo
+docker exec nextcloud-db mariadb-dump -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; \
+  nextcloud --single-transaction &gt; /tmp/backup.sql
+
+# Backup de una tabla
+docker exec nextcloud-db mariadb-dump -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; \
+  nextcloud oc_users &gt; /tmp/oc_users.sql
+
+# Restaurar
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; nextcloud &lt; backup.sql
+
+# Recrear DB vacía
+docker exec -i nextcloud-db mariadb -u root -p&quot;$MYSQL_ROOT_PASSWORD&quot; -e \
+  &quot;DROP DATABASE IF EXISTS nextcloud; CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;&quot;
+</code></pre>
+<h3>18.13 rclone (Google Drive)</h3>
+<pre><code class="language-bash"># Configuración
+rclone config                      # Interactivo
+rclone listremotes                 # Ver remotes configurados
+
+# Listar
+rclone lsd gdrive:                 # Carpetas
+rclone ls gdrive:nextcloud-backups # Archivos
+rclone lsf gdrive:carpeta/         # Solo nombres
+
+# Operaciones
+rclone copy archivo.txt gdrive:carpeta/
+rclone copy gdrive:carpeta/archivo.txt /local/  # Bajar
+rclone sync /local/ gdrive:carpeta/             # ⚠️ Sincronizar (puede borrar)
+rclone deletefile gdrive:carpeta/archivo.txt
+rclone delete gdrive:carpeta/                   # ⚠️ Borrar carpeta
+rclone size gdrive:nextcloud-backups            # Tamaño total
+rclone check /local/ gdrive:carpeta/            # Verificar integridad
+
+# Avanzado
+rclone copy ARCHIVO REMOTE: --progress         # Con barra de progreso
+rclone copy ARCHIVO REMOTE: --transfers=1      # Una conexión
+rclone copy ARCHIVO REMOTE: --bwlimit 10M      # Limitar bandwidth
+</code></pre>
+<h3>18.14 Backup manual</h3>
+<pre><code class="language-bash"># Ejecutar backup
+sudo bash /home/aldo/nextcloud/backup.sh
+
+# Ver últimos backups
+ls -lt /mnt/nextcloud/backups/ | head
+tail -50 /mnt/nextcloud/backups/backup.log
+
+# Verificar off-site
+rclone ls gdrive:nextcloud-backups/
+
+# Comprimir manualmente
+tar czf /tmp/backup.tar.gz -C /mnt/nextcloud/backups 2026-04-26_03-00
+</code></pre>
+<h3>18.15 Cron</h3>
+<pre><code class="language-bash">crontab -l                         # Ver crontab del usuario actual
+sudo crontab -l                    # Ver crontab de root
+crontab -e                         # Editar crontab
+sudo crontab -e                    # Editar el de root
+sudo grep CRON /var/log/syslog | tail -20    # Ver ejecuciones
+</code></pre>
+<h3>18.16 Git (recomendado para versionar config)</h3>
+<pre><code class="language-bash"># Inicializar
+cd /home/aldo/nextcloud
+git init
+echo &quot;.env&quot; &gt; .gitignore           # NO versionar secrets
+git add docker-compose.yml *.conf backup.sh .gitignore
+git commit -m &quot;Configuración inicial&quot;
+
+# Versionar cambios
+git diff                           # Ver cambios
+git add ARCHIVO
+git commit -m &quot;Mensaje&quot;
+git log --oneline                  # Historial
+</code></pre>
+<h3>18.17 Monitoreo (healthchecks + healthchecks.io + Telegram)</h3>
+<pre><code class="language-bash"># Ver estado de healthchecks Docker
+docker ps --format &quot;table {{.Names}}\t{{.Status}}&quot;
+
+# Detalles del healthcheck de un contenedor
+docker inspect nextcloud-app --format &#39;{{json .State.Health}}&#39; | python3 -m json.tool
+
+# Forzar reinicio si está unhealthy
+docker restart nextcloud-app
+
+# Test manual de la cadena de monitoreo
+curl -fsS https://cloud.hexa38.com/status.php
+curl -fsS https://hc-ping.com/TU_UUID
+
+# Ver el cron de monitoreo
+sudo crontab -l
+
+# Ver últimas ejecuciones del cron
+sudo grep CRON /var/log/syslog | tail -20
+
+# Test del tunnel Cloudflare (provoca alerta por email)
+docker stop nextcloud-tunnel
+sleep 120
+docker start nextcloud-tunnel
+
+# Test end-to-end de Nextcloud + Telegram (provoca alerta DOWN)
+docker stop nextcloud-app
+# Espera 15-20 min → llega notificación a Telegram + Email
+docker start nextcloud-app
+# Llega notificación de &quot;back UP&quot;
+
+# Ver canales de notificación configurados
+# https://healthchecks.io → Integrations
+# Esperado: @ Email (default) + Telegram (vía @HealthchecksBot)
+</code></pre>
+<h3>18.18 Tailscale</h3>
+<pre><code class="language-bash">sudo tailscale up                  # Conectar
+sudo tailscale logout              # Desconectar
+tailscale status                   # Estado
+tailscale ip                       # IPs asignadas
+tailscale ping otro-dispositivo    # Test
+</code></pre>
+<h3>18.19 Comandos del proyecto en orden cronológico</h3>
+<h4>Setup inicial</h4>
+<pre><code class="language-bash"># Instalar Docker
+curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker $USER
+
+# Crear estructura
+mkdir -p /home/aldo/nextcloud
+cd /home/aldo/nextcloud
+nano docker-compose.yml
+nano .env
+nano hsts.conf
+
+# Levantar
+docker compose up -d
+docker compose ps
+</code></pre>
+<h4>Después del primer deploy</h4>
+<pre><code class="language-bash"># Configuraciones de Nextcloud
+docker exec -u www-data nextcloud-app php occ db:add-missing-indices
+docker exec -u www-data nextcloud-app php occ maintenance:repair --include-expensive
+docker exec -u www-data nextcloud-app php occ config:system:set default_phone_region --value=&quot;PE&quot;
+docker exec -u www-data nextcloud-app php occ config:system:set maintenance_window_start --value=5
+</code></pre>
+<h4>Backup automático</h4>
+<pre><code class="language-bash"># Hacer ejecutable
+chmod +x /home/aldo/nextcloud/backup.sh
+
+# Añadir a cron
+sudo crontab -e
+# Añadir línea: 0 3 * * * /home/aldo/nextcloud/backup.sh
+</code></pre>
+<h4>Tailscale</h4>
+<pre><code class="language-bash">curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+</code></pre>
+<h4>rclone (off-site)</h4>
+<pre><code class="language-bash">sudo apt install -y rclone
+rclone config       # Configurar gdrive
+# Modificar backup.sh para añadir export RCLONE_CONFIG y la sección de subida
+</code></pre>
+<h4>Notify Push</h4>
+<pre><code class="language-bash"># Crear notify_push.conf con LoadModule + ProxyPass
+nano /home/aldo/nextcloud/notify_push.conf
+
+# Añadir servicio notify_push y volume mount en docker-compose.yml
+nano /home/aldo/nextcloud/docker-compose.yml
+
+# Recrear
+cd /home/aldo/nextcloud &amp;&amp; docker compose up -d --force-recreate app notify_push
+
+# Configurar
+docker exec -u www-data nextcloud-app php occ config:system:set forwarded_for_headers 0 --value=&quot;HTTP_X_FORWARDED_FOR&quot;
+set -a; source .env; set +a
+docker exec -u www-data nextcloud-app php occ notify_push:setup https://${DOMAIN}/push
+</code></pre>
+<h4>Sistema de monitoreo en capas</h4>
+<pre><code class="language-bash"># CAPA 1: Healthchecks Docker
+# Editar docker-compose.yml y añadir bloques &#39;healthcheck:&#39; en cada servicio
+nano /home/aldo/nextcloud/docker-compose.yml
+docker compose up -d
+docker ps --format &quot;table {{.Names}}\t{{.Status}}&quot;   # Verificar (healthy)
+
+# CAPA 2: Healthchecks.io
+# 1. Crear cuenta en https://healthchecks.io
+# 2. Crear check &quot;Nextcloud Hexa38&quot; (period 10min, grace 5min)
+# 3. Copiar la URL de ping
+# 4. Añadir cron de monitoreo cada 5 min
+(sudo crontab -l 2&gt;/dev/null; echo &quot;*/5 * * * * curl -fsS --retry 3 --max-time 30 https://cloud.hexa38.com/status.php &gt; /dev/null 2&gt;&amp;1 &amp;&amp; curl -fsS --max-time 10 https://hc-ping.com/TU_UUID &gt; /dev/null 2&gt;&amp;1&quot;) | sudo crontab -
+sudo crontab -l   # Verificar
+
+# CAPA 3: Cloudflare Tunnel Alerts
+# Web: https://one.dash.cloudflare.com/ → Notifications
+# → Add → &quot;Alerta de estado del túnel&quot;
+# → Activador: &quot;O se degrada o se reduce&quot;
+# → Email + tunnels seleccionados
+</code></pre>
+<h4>Notificaciones por Telegram (gratis, instantáneo)</h4>
+<pre><code class="language-bash"># 1. En Telegram: buscar @HealthchecksBot → /start
+# 2. El bot envía un link de confirmación
+# 3. Click en el link → seleccionar proyecto → Connect Telegram
+# 4. En healthchecks.io → check → Integrations → activar Telegram
+# 5. Probar con &quot;Send a Test Notification&quot;
+</code></pre>
+<hr>
+<h2>19. Recomendaciones finales <a name="19-recomendaciones"></a></h2>
+<h3>19.1 Hardware</h3>
+<p>🔴 <strong>Prioridad alta</strong></p>
+<ul>
+<li>Reemplazar HDD SDA (sistema) por SSD ($25-40 USD)</li>
+<li>Comprar UPS pequeño ($30-50 USD) — previene apagados forzados</li>
+</ul>
+<p>🟠 <strong>Prioridad media</strong></p>
+<ul>
+<li>Ampliar RAM de 4 GB a 8 GB ($15-20 USD)</li>
+<li>Cambiar pila CMOS si tiene &gt;5 años</li>
+</ul>
+<p>🟡 <strong>Prioridad baja</strong></p>
+<ul>
+<li>Considerar segundo NUC para alta disponibilidad</li>
+<li>Disco extra para RAID-1 en <code>/mnt/nextcloud</code></li>
+</ul>
+<h3>19.2 Software</h3>
+<p>✅ <strong>Hacer ya</strong></p>
+<ul>
+<li>Eliminar Snap Nextcloud: <code>sudo snap remove --purge nextcloud</code></li>
+<li>Verificar que el cron de backup corre: <code>sudo crontab -l</code></li>
+<li>Confirmar backups en Drive: <code>rclone ls gdrive:nextcloud-backups/</code></li>
+</ul>
+<p>✅ <strong>Hacer este mes</strong></p>
+<ul>
+<li>Estudiar la guía de diagnóstico</li>
+<li>Probar restauración en VM (test de DR)</li>
+<li>Configurar fail2ban</li>
+<li>Activar admin_audit app</li>
+<li>Habilitar 2FA para todos los usuarios</li>
+</ul>
+<p>✅ <strong>Cada 3 meses</strong></p>
+<ul>
+<li>Test de restauración real</li>
+<li>Test SMART largo de discos</li>
+<li>Actualización de Nextcloud (con backup previo)</li>
+<li>Revisión y rotación de logs</li>
+</ul>
+<h3>19.3 Operativas</h3>
+<p>⚠️ <strong>NUNCA</strong></p>
+<ul>
+<li>Apagar a la fuerza (cortar la corriente)</li>
+<li>Editar docker-compose.yml sin backup previo</li>
+<li>Hacer <code>docker compose down -v</code> (la <code>-v</code> borra volúmenes)</li>
+<li>Ejecutar comandos destructivos sin entender qué hacen</li>
+<li>Pegar texto explicativo en la terminal (solo respuestas a prompts)</li>
+</ul>
+<p>✅ <strong>SIEMPRE</strong></p>
+<ul>
+<li>Backup antes de cualquier cambio importante</li>
+<li>Documentar lo que hagas</li>
+<li>Probar en VM antes de producción</li>
+<li>Verificar después de cada cambio</li>
+<li>Mantener actualizado el sistema operativo</li>
+</ul>
+<h3>19.4 Seguridad</h3>
+<ul>
+<li>✅ HTTPS forzado (HSTS) — ya configurado</li>
+<li>✅ 2FA obligatorio — ya configurado</li>
+<li>✅ Firewall UFW — ya configurado</li>
+<li>✅ Cloudflare como WAF — ya configurado</li>
+<li>🔲 fail2ban — pendiente</li>
+<li>🔲 admin_audit app — pendiente</li>
+<li>🔲 Política de contraseñas estricta — pendiente</li>
+</ul>
+<h3>19.5 Estudio</h3>
+<p><strong>Plan de estudio sugerido:</strong></p>
+<ul>
+<li><strong>Semana 1</strong>: leer Parte 1 de esta guía (fundamentos)</li>
+<li><strong>Semana 2</strong>: leer Parte 2 (implementación), revisar archivos</li>
+<li><strong>Semana 3</strong>: leer Parte 3 (evolución y mejoras)</li>
+<li><strong>Semana 4</strong>: practicar comandos del Parte 5 (referencia)</li>
+</ul>
+<p><strong>Cada día (5 min):</strong></p>
+<ul>
+<li>Ejecuta un comando del catálogo</li>
+<li>Compara la salida con lo esperado</li>
+<li>Anota algo nuevo en un cuaderno</li>
+</ul>
+<p><strong>Recursos adicionales:</strong></p>
+<ul>
+<li>The Linux Command Line (William Shotts) — gratuito</li>
+<li>Documentación oficial Nextcloud: docs.nextcloud.com</li>
+<li>Arch Wiki (aplica a casi cualquier Linux): wiki.archlinux.org</li>
+<li>Documentación Docker: docs.docker.com</li>
+</ul>
+<hr>
+<h2>20. Estado final del sistema <a name="20-estado-final"></a></h2>
+<h3>20.1 Resumen ejecutivo</h3>
+<pre><code>╔══════════════════════════════════════════════════════════╗
+║   NUBE PERSONAL CON SERVIDOR DEDICADO LOW COST            ║
+║   ESTADO ACTUAL — ABRIL 2026                              ║
+╠══════════════════════════════════════════════════════════╣
+║                                                            ║
+║  🌐 ACCESO                                                  ║
+║     ✅ https://cloud.hexa38.com (público vía Cloudflare)   ║
+║     ✅ ssh por Tailscale (acceso remoto seguro)            ║
+║     ✅ Red local LAN (192.168.x.x)                         ║
+║                                                            ║
+║  💾 ALMACENAMIENTO                                          ║
+║     ✅ 1.7 TB libres en disco SDB (1.8 TB total)           ║
+║     ✅ Backup local: 7 días retención                      ║
+║     ✅ Backup off-site Google Drive: 14 días retención     ║
+║                                                            ║
+║  🛡️  SEGURIDAD                                              ║
+║     ✅ HTTPS + HSTS                                         ║
+║     ✅ 2FA obligatorio                                      ║
+║     ✅ Firewall UFW                                         ║
+║     ✅ Cloudflare WAF                                       ║
+║                                                            ║
+║  🚀 RENDIMIENTO                                             ║
+║     ✅ Redis cache + file locking                           ║
+║     ✅ Notify Push (sync instantáneo)                       ║
+║     ✅ APCu local cache                                     ║
+║                                                            ║
+║  🤖 AUTOMATIZACIÓN                                          ║
+║     ✅ Backup diario 3 AM (local + Google Drive)           ║
+║     ✅ Cron de Nextcloud                                    ║
+║     ✅ Updates automáticos Ubuntu                           ║
+║                                                            ║
+║  📡 MONITOREO EN CAPAS                                      ║
+║     ✅ Capa 1: Healthchecks Docker (auto-restart)          ║
+║     ✅ Capa 2: Healthchecks.io + Telegram + Email          ║
+║     ✅ Capa 3: Cloudflare Tunnel alerts (Email)            ║
+║                                                            ║
+║  🧠 GESTIÓN ASISTIDA (MCP)                                  ║
+║     ✅ Servidor MCP (paramiko + Tailscale SSH)             ║
+║     ✅ 11 herramientas de diagnóstico/operación            ║
+║     ✅ Diagnóstico vía Claude sin abrir SSH manual         ║
+║                                                            ║
+║  📱 CANALES DE ALERTA                                       ║
+║     ✅ Telegram (instantáneo, gratis)                       ║
+║     ✅ Email (gratis)                                       ║
+║     ❌ WhatsApp (descartado: requiere plan pago)            ║
+║                                                            ║
+║  📊 HARDWARE                                                ║
+║     🟢 CPU: OK (52-57°C)                                    ║
+║     🟢 RAM: 3.68 GB (justa)                                 ║
+║     🟢 SDB: SMART PASSED                                    ║
+║     🟡 SDA: envejecido (reemplazar a mediano plazo)         ║
+║                                                            ║
+║  🌐 RED                                                     ║
+║     🟢 WiFi en AP estable &quot;Santiago&quot; (fix iwlwifi+cambio)  ║
+║     🟢 Túnel sin caídas (0 timeouts en 24h)               ║
+║     🔲 Ethernet enp3s0 (opcional, robustez extra)          ║
+║                                                            ║
+║  ⬆️  SOFTWARE                                               ║
+║     🟢 Nextcloud 33.0.4 (imagen Docker fijada a 33)        ║
+║                                                            ║
+╚══════════════════════════════════════════════════════════╝
+</code></pre>
+<h3>20.2 Métricas del proyecto completo</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RAM total</td>
+<td>3.7 GB + 7.7 GB swap</td>
+</tr>
+<tr>
+<td>RAM usada</td>
+<td>~1.3 GB</td>
+</tr>
+<tr>
+<td>Disco datos disponible</td>
+<td>1.7 TB</td>
+</tr>
+<tr>
+<td>Contenedores Docker</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Herramientas MCP de gestión</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Tiempo de arranque</td>
+<td>&lt; 2 minutos</td>
+</tr>
+<tr>
+<td>Backups diarios local</td>
+<td>7 días</td>
+</tr>
+<tr>
+<td>Backups remoto (Drive)</td>
+<td>14 días</td>
+</tr>
+<tr>
+<td>Tamaño backup actual</td>
+<td>~8 GB</td>
+</tr>
+<tr>
+<td>Tiempo de backup</td>
+<td>~7 minutos</td>
+</tr>
+<tr>
+<td>Costo anual</td>
+<td>~$46 USD</td>
+</tr>
+<tr>
+<td>Ahorro vs comerciales</td>
+<td>60-68%</td>
+</tr>
+</tbody></table>
+<h3>20.3 Logros del proyecto</h3>
+<ul>
+<li>✅ Nube personal funcional 24/7</li>
+<li>✅ Acceso desde cualquier lugar del mundo</li>
+<li>✅ Privacidad y control total de datos</li>
+<li>✅ Sistema de backup robusto (3-2-1)</li>
+<li>✅ Sincronización instantánea</li>
+<li>✅ Sistema de monitoreo en 3 capas (defense in depth)</li>
+<li>✅ Gestión asistida por IA vía servidor MCP</li>
+<li>✅ Diagnóstico forense multicapa (alerta Cloudflare → driver WiFi del kernel)</li>
+<li>✅ Costo mínimo</li>
+<li>✅ Documentación completa</li>
+<li>✅ Recuperación exitosa de incidente</li>
+<li>✅ Diagnóstico forense aplicado</li>
+<li>✅ Múltiples disciplinas integradas</li>
+</ul>
+<hr>
+<h2>📜 Historial de versiones de esta guía</h2>
+<table>
+<thead>
+<tr>
+<th>Versión</th>
+<th>Fecha</th>
+<th>Cambios</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>Abril 2026</td>
+<td>Documento original (PDF)</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>2026-04-24</td>
+<td>+ Recuperación post-incidente</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>2026-04-25</td>
+<td>+ Guía de diagnóstico</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>2026-04-26</td>
+<td>+ Backup off-site con rclone</td>
+</tr>
+<tr>
+<td>3.0</td>
+<td>2026-04-26</td>
+<td>Versión definitiva integrada</td>
+</tr>
+<tr>
+<td>3.1</td>
+<td>2026-04-27</td>
+<td>+ Sistema de monitoreo en capas (healthchecks Docker + healthchecks.io + Cloudflare alerts)</td>
+</tr>
+<tr>
+<td><strong>3.2</strong></td>
+<td><strong>2026-04-29</strong></td>
+<td><strong>+ Notificaciones por Telegram via @HealthchecksBot. WhatsApp evaluado y descartado por costo</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>👨‍💻 Información del proyecto</h2>
+<p><strong>Proyecto:</strong> Nube Personal con Servidor Dedicado Low Cost
+<strong>Stack:</strong> Nextcloud + Docker + MariaDB + Redis + Cloudflare Tunnel + Tailscale
+<strong>Costo anual:</strong> ~$46 USD (vs $120-144 USD de servicios comerciales)
+<strong>Asistencia técnica:</strong> Claude (Anthropic)</p>
+<blockquote>
+<p><em>&quot;Un sistema bien documentado es un sistema que perdura. Un sistema bien automatizado es un sistema que escala. Un sistema bien monitoreado es un sistema que duerme tranquilo.&quot;</em></p>
+</blockquote>
+<hr>
+<p><strong>Próxima revisión sugerida:</strong> Octubre 2026 (cada 6 meses)</p>
+
+
+</body>
+</html>

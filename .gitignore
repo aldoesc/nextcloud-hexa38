@@ -1,0 +1,34 @@
+# Editor
+.vscode/
+
+# Credenciales y configuración sensible
+.env
+.env.*
+mcp-nextcloud/.env
+nextcloud/.env
+
+# Datos de Nextcloud (no versionar, son datos de usuarios)
+nextcloud/data/
+nextcloud/db/
+
+# Archivos de backup / instaladores
+*.zip
+*.sql
+*.bak
+
+# Logs
+*.log
+logs/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

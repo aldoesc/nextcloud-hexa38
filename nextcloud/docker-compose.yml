@@ -1,0 +1,105 @@
+services:
+  # ==========================================
+  # Base de datos MariaDB
+  # ==========================================
+  db:
+    image: mariadb:10.11
+    container_name: nextcloud-db
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - nextcloud_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    networks:
+      - backend
+
+  # ==========================================
+  # Redis - Cache y bloqueo de archivos
+  # ==========================================
+  redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - backend
+
+  # ==========================================
+  # Nextcloud App
+  # ==========================================
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud-app
+    restart: always
+    ports:
+      - 9000:80
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - nextcloud_html:/var/www/html
+      - nextcloud_data:/var/www/html/data
+      - ./hsts.conf:/etc/apache2/conf-enabled/hsts.conf:ro
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD=${REDIS_PASSWORD}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN} localhost
+      - OVERWRITEPROTOCOL=https
+      - OVERWRITECLIURL=https://${DOMAIN}
+      - OVERWRITEHOST=${DOMAIN}
+      - PHP_MEMORY_LIMIT=1G
+      - PHP_UPLOAD_LIMIT=16G
+    networks:
+      - backend
+
+  # ==========================================
+  # Cron - Tareas programadas de Nextcloud
+  # ==========================================
+  cron:
+    image: nextcloud:latest
+    container_name: nextcloud-cron
+    restart: always
+    volumes:
+      - nextcloud_html:/var/www/html
+      - nextcloud_data:/var/www/html/data
+    entrypoint: /cron.sh
+    depends_on:
+      - app
+    networks:
+      - backend
+
+  # ==========================================
+  # Cloudflare Tunnel - Acceso remoto seguro
+  # ==========================================
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: nextcloud-tunnel
+    restart: always
+    command: tunnel run --token ${CLOUDFLARE_TOKEN}
+    depends_on:
+      - app
+    networks:
+      - backend
+
+# ==========================================
+# Volumenes
+# ==========================================
+volumes:
+  nextcloud_html:
+  nextcloud_db:
+  nextcloud_data:
+
+# ==========================================
+# Red interna aislada
+# ==========================================
+networks:
+  backend:
+    driver: bridge
